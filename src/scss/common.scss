@@ -1,0 +1,12 @@
+@import 'mixins';
+@import 'variables';
+
+div {
+  .noty_body {
+    @include overpass-font;
+    background-color: $color4;
+    color: $color3;
+    border: 1px solid $color3;
+    text-align: center;
+  }
+}
