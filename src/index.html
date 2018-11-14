@@ -5,6 +5,11 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image macro</title>
+    <style>
+        .display {
+            background-color: #3badd6;
+        }
+    </style>
     <!-- build:css css/style.css -->
     <!-- inject:css -->
     <link rel="stylesheet" href="css/style.css">
@@ -12,8 +17,18 @@
     <!-- endbuild -->
 
 <body>
+<header>
+    <h1>Image Macro
+    </h1>
+</header>
 <main>
-    <div class="image-uploader"></div>
+    <section class="main">
+        <div class="buttons"></div>
+        <div class="image"><canvas class="display" width="600" height="600"></canvas></div>
+    </section>
+    <section class="text-tools">
+        <div class="image-uploader"></div>
+    </section>
 </main>
 
 <!-- build:js js/app.js -->

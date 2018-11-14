@@ -11,6 +11,7 @@ export class ImageUploaderComponent implements ISubscribe<any> {
     private fileEventSource: Observable<any>;
 
     constructor(elementQuery: string, labelTxt: string, btnTxt: string) {
+        console.log('constructor');
         this.htmlElement = document.querySelector(elementQuery);
         if (this.htmlElement) {
             this.htmlElement.innerHTML = null;
@@ -48,6 +49,7 @@ export class ImageUploaderComponent implements ISubscribe<any> {
             this.addFileName(file);
             return file;
         });
+        console.log(this.fileEventSource);
     }
 
     private addFileName(file: File) {
