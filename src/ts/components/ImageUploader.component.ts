@@ -33,8 +33,8 @@ export class ImageUploaderComponent implements ISubscribe<any> {
            <label class='upload-label'>${labelText}</label>
            <input class='upload-button' type='button' value='${buttonText}'>
            <input class='upload-input' type='file' accept='image/x-png,image/jpeg' style='display:none'>
-           <span class='upload-text'><span>
-        </form>`;
+           <span class='upload-text'></span>
+        </form>`.trim();
         this.htmlElement.innerHTML = innerHTML;
         this.inputUpload = this.htmlElement.querySelector('.upload-input');
         this.upLoadName = this.htmlElement.querySelector('.upload-text');
@@ -45,11 +45,19 @@ export class ImageUploaderComponent implements ISubscribe<any> {
         });
 
         this.fileEventSource = Observable.fromEvent(this.inputUpload, 'change').map((event: Event) => {
-            const file: File = (<HTMLInputElement> event.target).files[0];
-            this.addFileName(file);
-            return file;
+            // const file: File = (<HTMLInputElement> event.target).files[0];
+            // let value: any;
+            // this.addFileName(file);
+            // const fileReader = new FileReader();
+            // fileReader.onload = (event) => {
+            //     console.log(event);
+            //     value = event.target;
+            // };
+            // fileReader.readAsDataURL(file);
+            // console.log(value);
+            // return value;
+            return null;
         });
-        console.log(this.fileEventSource);
     }
 
     private addFileName(file: File) {

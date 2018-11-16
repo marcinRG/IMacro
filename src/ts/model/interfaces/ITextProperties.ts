@@ -13,4 +13,5 @@ export interface ITextProperties {
     shadowBlur?: number;
     shadowOffsetX?: number;
     shadowOffsetY?: number;
+    alpha: number;
 }
