@@ -1,17 +1,17 @@
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
 import {ISubscribe} from '../model/interfaces/ISubscribe';
 import {Observer} from 'rxjs/Observer';
+import 'rxjs/add/operator/mergeMap';
 
 export class ImageUploaderComponent implements ISubscribe<any> {
     private htmlElement;
     private inputUpload;
     private upLoadName;
+    //private thumbnail;
     private fileEventSource: Observable<any>;
 
     constructor(elementQuery: string, labelTxt: string, btnTxt: string) {
-        console.log('constructor');
         this.htmlElement = document.querySelector(elementQuery);
         if (this.htmlElement) {
             this.htmlElement.innerHTML = null;
@@ -44,20 +44,32 @@ export class ImageUploaderComponent implements ISubscribe<any> {
             this.inputUpload.click();
         });
 
-        this.fileEventSource = Observable.fromEvent(this.inputUpload, 'change').map((event: Event) => {
-            // const file: File = (<HTMLInputElement> event.target).files[0];
-            // let value: any;
-            // this.addFileName(file);
-            // const fileReader = new FileReader();
-            // fileReader.onload = (event) => {
-            //     console.log(event);
-            //     value = event.target;
-            // };
-            // fileReader.readAsDataURL(file);
-            // console.log(value);
-            // return value;
-            return null;
+        this.fileEventSource = Observable.fromEvent(this.inputUpload, 'change')
+            .flatMap((event: Event) => this.loadImage(event));
+    }
+
+    private loadImage(event: Event) {
+        return Observable.create((observer) => {
+            const file: File = (<HTMLInputElement> event.target).files[0];
+            if (file) {
+                this.addFileName(file);
+                const fileReader = new FileReader();
+                fileReader.addEventListener('load', () => {
+                    const img = new Image();
+                    img.src = fileReader.result;
+                    img.addEventListener('load', () => {
+                        this.addImgThumbnail();
+                        observer.next(img);
+                        observer.complete();
+                    });
+                });
+                fileReader.readAsDataURL(file);
+            }
         });
+    }
+
+    private addImgThumbnail() {
+       console.log('not implemented');
     }
 
     private addFileName(file: File) {
