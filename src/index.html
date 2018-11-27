@@ -6,9 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image macro</title>
     <style>
-        .display {
-            background-color: #3badd6;
+
+        body {
+            background: black;
         }
+
+        .display {
+            display: block;
+            background-color: #3badd6;
+            margin: 0 auto;
+        }
+
+        .main {
+            overflow: hidden;
+            width: 1100px;
+        }
+
+        .main::after {
+            clear: both;
+        }
+
+        .canvas-display {
+            width: 750px;
+            float: right;
+            background-color: tomato;
+        }
+
+        .canvas-image-tools {
+            float: left;
+            width: 350px;
+            background-color: magenta;
+        }
+
+        .image-options, .canvas-options {
+            width: 100%;
+        }
+
+        .text-tools {
+            width: 1100px;
+            background-color: mediumseagreen;
+        }
+
+        .txt-cont {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .txt-cont::after {
+            clear: both;
+        }
+
+        .left {
+            width: 50%;
+            float: left;
+            height: 270px;
+            background-color: bisque;
+        }
+
+        .right {
+            width: 50%;
+            float: right;
+            background-color: beige;
+        }
+
+
     </style>
     <!-- build:css css/style.css -->
     <!-- inject:css -->
@@ -20,17 +81,239 @@
 <header>
     <h1>Image Macro</h1>
 </header>
-<main>
-    <section class="main">
-        <div class="buttons"></div>
-        <div class="image"><canvas class="display" width="600" height="600"></canvas></div>
-    </section>
-    <section class="text-tools">
-        <div class="image-uploader"></div>
-    </section>
-    <!--<img src="img/clouds-conifer-daylight-371589.jpg" width="600px">-->
-</main>
+<main class="main">
+    <section class="canvas-image-tools">
+        <div class="canvas-settings">
+            <div class="canvas-options">
+                <h2>Canvas options</h2>
+                <label>background-color</label>
+                <div class="combo-box-cuie">
+                    <div class="inputs">
+                        <input class="input-txt" type="text">
+                        <button class="input-btn"></button>
+                    </div>
+                    <ul class="list-elements">
+                        <li class="li-elem">lorem ipsum 1</li>
+                        <li class="li-elem">lorem ipsum 2</li>
+                        <li class="li-elem">lorem ipsum 3</li>
+                        <li class="li-elem">lorem ipsum 4</li>
+                        <li class="li-elem">lorem ipsum 5</li>
+                        <li class="li-elem">lorem ipsum 6</li>
+                        <li class="li-elem">lorem ipsum 7</li>
+                        <li class="li-elem">lorem ipsum 8</li>
+                        <li class="li-elem">lorem ipsum 9</li>
+                        <li class="li-elem">lorem ipsum 10</li>
+                    </ul>
+                </div>
+                <label>width</label>
+                <div class="slider-cuie">
+                    <div class="click-field">
+                        <div class="beam">
+                            <div class="beam-fill"></div>
+                        </div>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+                <label>height</label>
+                <div class="slider-cuie">
+                    <div class="click-field">
+                        <div class="beam">
+                            <div class="beam-fill"></div>
+                        </div>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+
+        <div class="image-settings">
+            <div class="image-uploader"></div>
+            <div class="image-options">
+                <h2>Image options</h2>
+                <label>position</label>
+                <div class="radio-btn-group-cuie">
+                    <div class='btn-wrapper top-left'><input type="radio" name="gr" class="input-rbtn"
+                                                             value="something"></div>
+                    <div class="btn-wrapper top-center"><input type="radio" name="gr" class="input-rbtn"></div>
+                    <div class="btn-wrapper top-right"><input type="radio" name="gr" class="input-rbtn"></div>
+                    <div class="btn-wrapper center-left"><input type="radio" name="gr" class="input-rbtn"></div>
+                    <div class="btn-wrapper center-center"><input type="radio" name="gr" class="input-rbtn"></div>
+                    <div class="btn-wrapper center-right"><input type="radio" name="gr" class="input-rbtn"></div>
+                    <div class="btn-wrapper bottom-left"><input type="radio" name="gr" class="input-rbtn"></div>
+                    <div class="btn-wrapper bottom-center"><input type="radio" name="gr" class="input-rbtn"></div>
+                    <div class="btn-wrapper bottom-right"><input type="radio" name="gr" class="input-rbtn"></div>
+                </div>
+                <label>rotation</label>
+                <div class="slider-cuie">
+                    <div class="click-field">
+                        <div class="beam">
+                            <div class="beam-fill"></div>
+                        </div>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+                <label>size</label>
+                <div class="slider-cuie">
+                    <div class="click-field">
+                        <div class="beam">
+                            <div class="beam-fill"></div>
+                        </div>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+                <label>transparency</label>
+                <div class="slider-cuie">
+                    <div class="click-field">
+                        <div class="beam">
+                            <div class="beam-fill"></div>
+                        </div>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section class="canvas-display">
+        <canvas class="display" width="700" height="700"></canvas>
+    </section>
+</main>
+<section class="text-tools">
+    <div class="txt-button">
+        <button>Add text</button>
+    </div>
+    <div class="text-options">
+        <label>Text</label>
+        <input class="txt" type="text">
+        <label>position x</label>
+        <div class="slider-cuie">
+            <div class="click-field">
+                <div class="beam">
+                    <div class="beam-fill"></div>
+                </div>
+                <div class="pointer"></div>
+            </div>
+        </div>
+        <label>position y</label>
+        <div class="slider-cuie">
+            <div class="click-field">
+                <div class="beam">
+                    <div class="beam-fill"></div>
+                </div>
+                <div class="pointer"></div>
+            </div>
+        </div>
+        <div class="txt-cont">
+            <div class="left">
+                <label>font family</label>
+                <div class="combo-box-cuie">
+                    <div class="inputs">
+                        <input class="input-txt" type="text">
+                        <button class="input-btn"></button>
+                    </div>
+                    <ul class="list-elements">
+                        <li class="li-elem">lorem ipsum 1</li>
+                        <li class="li-elem">lorem ipsum 2</li>
+                        <li class="li-elem">lorem ipsum 3</li>
+                        <li class="li-elem">lorem ipsum 4</li>
+                        <li class="li-elem">lorem ipsum 5</li>
+                        <li class="li-elem">lorem ipsum 6</li>
+                        <li class="li-elem">lorem ipsum 7</li>
+                        <li class="li-elem">lorem ipsum 8</li>
+                        <li class="li-elem">lorem ipsum 9</li>
+                        <li class="li-elem">lorem ipsum 10</li>
+                    </ul>
+                </div>
+                <label>font color</label>
+                <div class="combo-box-cuie">
+                    <div class="inputs">
+                        <input class="input-txt" type="text">
+                        <button class="input-btn"></button>
+                    </div>
+                    <ul class="list-elements">
+                        <li class="li-elem">lorem ipsum 1</li>
+                        <li class="li-elem">lorem ipsum 2</li>
+                        <li class="li-elem">lorem ipsum 3</li>
+                        <li class="li-elem">lorem ipsum 4</li>
+                        <li class="li-elem">lorem ipsum 5</li>
+                        <li class="li-elem">lorem ipsum 6</li>
+                        <li class="li-elem">lorem ipsum 7</li>
+                        <li class="li-elem">lorem ipsum 8</li>
+                        <li class="li-elem">lorem ipsum 9</li>
+                        <li class="li-elem">lorem ipsum 10</li>
+                    </ul>
+                </div>
+                <label>font size</label>
+                <div class="spinner-cuie">
+                    <input type="text" class="input-txt">
+                    <div class="button-wrapper">
+                        <button class="button-up"></button>
+                        <button class="button-down"></button>
+                    </div>
+                </div>
+                <label>rotation</label>
+                    <div class="slider-cuie">
+                    <div class="click-field">
+                        <div class="beam">
+                            <div class="beam-fill"></div>
+                        </div>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <label>Shadow</label>
+                <label>Color</label>
+                <div class="combo-box-cuie">
+                    <div class="inputs">
+                        <input class="input-txt" type="text">
+                        <button class="input-btn"></button>
+                    </div>
+                    <ul class="list-elements">
+                        <li class="li-elem">lorem ipsum 1</li>
+                        <li class="li-elem">lorem ipsum 2</li>
+                        <li class="li-elem">lorem ipsum 3</li>
+                        <li class="li-elem">lorem ipsum 4</li>
+                        <li class="li-elem">lorem ipsum 5</li>
+                        <li class="li-elem">lorem ipsum 6</li>
+                        <li class="li-elem">lorem ipsum 7</li>
+                        <li class="li-elem">lorem ipsum 8</li>
+                        <li class="li-elem">lorem ipsum 9</li>
+                        <li class="li-elem">lorem ipsum 10</li>
+                    </ul>
+                </div>
+                <label>rotation</label>
+                <div class="slider-cuie">
+                    <div class="click-field">
+                        <div class="beam">
+                            <div class="beam-fill"></div>
+                        </div>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+                <label>rotation</label>
+                <div class="slider-cuie">
+                    <div class="click-field">
+                        <div class="beam">
+                            <div class="beam-fill"></div>
+                        </div>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+                <label>rotation</label>
+                <div class="slider-cuie">
+                    <div class="click-field">
+                        <div class="beam">
+                            <div class="beam-fill"></div>
+                        </div>
+                        <div class="pointer"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!-- build:js js/app.js -->
 <!-- inject:js -->
 <script src="bundle.js"></script>
