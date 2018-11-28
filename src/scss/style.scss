@@ -1,2 +1,12 @@
-@import 'libs/noty/noty';
+@import 'variables';
+@import 'mixins';
+@import 'common';
+@import 'components/combobox';
+@import 'components/radiobuttongroup';
+@import 'components/slider';
+@import 'components/imageUploader';
 
+@import 'pageSections/titleSection';
+@import 'pageSections/canvasImageSection';
+@import 'pageSections/textSection';
+@import 'pageSections/canvasSection';

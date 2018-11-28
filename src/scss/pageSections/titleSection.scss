@@ -1,0 +1,28 @@
+@import '../variables';
+@import '../mixins';
+
+.title {
+  @include block-border-box;
+  background-color: $app-section-background;
+  width: 100%;
+  padding: .5em;
+  border: 1px solid $app-border-color;
+  height: 6vh;
+
+  .app-name {
+    @include block-border-box;
+    width: 100%;
+    font-size: 1em;
+    font-weight: normal;
+    color: $app-text-color;
+
+    span {
+      display: inline-block;
+      width: 100%;
+      font-size: .65em;
+      box-sizing: border-box;
+      color: $app-text-color;
+      padding: 0 2em;
+    }
+  }
+}

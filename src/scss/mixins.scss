@@ -7,6 +7,7 @@
 }
 
 @mixin block-border-box {
+  @include set-to-zero;
   box-sizing: border-box;
   display: block;
 }
@@ -15,4 +16,76 @@
   pointer-events: none;
   color: $color-grey;
   background-color: #f1e1d7;
+}
+
+@mixin clear-both-overflow-hidden {
+  overflow: hidden;
+
+  &::after {
+    clear: both;
+  }
+}
+
+@mixin input-fields {
+  @include clear-both-overflow-hidden;
+  border: $app-border-2 solid 1px;
+  height: 1.55em;
+}
+
+@mixin spinner-button {
+  @include set-to-zero;
+  box-sizing: border-box;
+  outline: 0;
+  height: 50%;
+  width: 100%;
+  font-size: .5em;
+  cursor: pointer;
+  color: black;
+}
+
+@mixin input-text {
+  @include block-border-box;
+  background-color: $app-input-color;
+  color: $app-text-color;
+  outline: 0;
+  float: left;
+  font-size: .75em;
+  height: 100%;
+  padding: .15em;
+
+  &:focus {
+    background-color: $app-background;
+  }
+}
+
+@mixin input-btn {
+  @include block-border-box;
+  font-size: .65em;
+  outline: 0;
+  float: right;
+  height: 100%;
+  color: $app-text-color;
+  background-color: $app-button-color;
+}
+
+@mixin section-presets {
+  @include set-to-zero;
+  background-color: $app-section-background;
+  border: 1px solid $app-border-color;
+}
+
+@mixin section-title {
+  @include set-to-zero;
+  padding-bottom: .2em;
+  color: $app-text-color;
+  font-size: .8em;
+  font-weight: normal;
+}
+
+@mixin label {
+  @include set-to-zero;
+  display: block;
+  color: $app-text-color;
+  font-size: .65em;
+  padding: .3em 0;
 }

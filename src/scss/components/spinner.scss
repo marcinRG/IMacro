@@ -1,0 +1,38 @@
+@import '../variables';
+@import '../mixins';
+
+.spinner-cuie {
+
+  @include block-border-box;
+  @include input-fields;
+  @include clear-both-overflow-hidden;
+
+  .input-txt {
+    @include input-text;
+    width: 90%;
+  }
+
+  .button-wrapper {
+    width: 10%;
+    float: right;
+  }
+
+  .button-up {
+    @include spinner-button;
+    border-bottom: 1px solid $cui-border-color-lighter;
+
+    &::before {
+      display: inline-block;
+      content: '\025B2';
+    }
+  }
+
+  .button-down {
+    @include spinner-button;
+
+    &::before {
+      content: '\025BC';
+    }
+  }
+
+}

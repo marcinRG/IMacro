@@ -1,0 +1,55 @@
+@import '../variables';
+@import '../mixins';
+
+.image-uploader {
+  @include block-border-box;
+  width: 100%;
+
+  .upload-form {
+    display: block;
+    width: 100%;
+    margin-bottom: .5em;
+    padding-bottom: .5em;
+    border-bottom: 1px solid $app-border-color;
+  }
+
+  .upload-image {
+    border: 1px solid $app-text-color;
+    display: block;
+    width: 55%;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .upload-text {
+    @include block-border-box;
+    width: 80%;
+    font-size: .65em;
+    border: $app-border-2 solid 1px;
+    background-color: $app-input-color;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: $app-text-color;
+    padding: .2em;
+  }
+
+  .upload-image-properties {
+    @include block-border-box;
+    display: inline-block;
+    font-size: .65em;
+    padding: .2em;
+    border: $app-border-2 solid 1px;
+    background-color: $app-input-color;
+    color: $app-text-color;
+  }
+
+  .upload-button {
+    @include input-btn;
+    cursor: pointer;
+    width: 100%;
+    height: 2em;
+    border: $app-border-2 solid 1px;
+  }
+
+}

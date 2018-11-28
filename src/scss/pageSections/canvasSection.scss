@@ -1,0 +1,9 @@
+@import '../variables';
+@import '../mixins';
+
+.canvas-image {
+  @include block-border-box;
+  width: 200px;
+  flex: 5;
+  background-color: $app-background;
+}

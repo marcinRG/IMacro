@@ -1,0 +1,66 @@
+@import '../variables';
+@import '../mixins';
+
+.combo-box-cuie {
+  @include block-border-box;
+  position: relative;
+
+  .inputs {
+    @include input-fields;
+
+    .input-txt {
+      @include input-text;
+      width: 80%;
+    }
+
+    .input-btn {
+      @include input-btn;
+      cursor: pointer;
+      width: 20%;
+
+      &::after {
+        display: inline-block;
+        content: '\025BC';
+        transform: rotateZ(0);
+        transition-duration: .3s;
+        transition-property: transform;
+      }
+
+      &.unfolded {
+
+        &::after {
+          transform: rotateZ(180deg);
+        }
+      }
+    }
+  }
+
+  .list-elements {
+    @include block-border-box;
+    display: none;
+    width: 100%;
+    position: absolute;
+    z-index: 11;
+    top: 100%;
+    left: 0;
+    background-color: $app-background;
+    list-style-type: none;
+    border: 1px solid $app-border-2;
+    border-top: 0;
+    //overflow: auto;
+    //setting element height can cause visual bugs when sliding down
+    //height: 510px;
+
+    .li-elem {
+      padding: .35em;
+      font-size: .75em;
+      cursor: pointer;
+      color: $app-text-color;
+
+      &:hover {
+        background-color: $app-text-color;
+        color: $app-background;
+      }
+    }
+  }
+}
