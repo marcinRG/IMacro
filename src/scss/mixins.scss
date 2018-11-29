@@ -69,7 +69,7 @@
 }
 
 @mixin section-presets {
-  @include set-to-zero;
+  @include block-border-box;
   background-color: $app-section-background;
   border: 1px solid $app-border-color;
 }

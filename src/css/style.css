@@ -315,6 +315,8 @@ body {
     border: 0;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    display: block;
     background-color: #3c3f41;
     border: 1px solid #323232;
     padding: .3em; }
@@ -322,6 +324,8 @@ body {
     border: 0;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    display: block;
     background-color: #3c3f41;
     border: 1px solid #323232;
     padding: .3em; }
@@ -350,18 +354,16 @@ body {
   padding: 0;
   box-sizing: border-box;
   display: block;
-  width: 325px;
-  border: 0;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  display: block;
+  width: 290px;
+  height: 94vh;
   background-color: #3c3f41;
   overflow-y: auto; }
   .text-tools .add-text {
     border: 0;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    display: block;
     background-color: #3c3f41;
     border: 1px solid #323232;
     padding: .3em; }
@@ -373,8 +375,6 @@ body {
       display: block;
       font-size: .65em;
       outline: 0;
-      float: right;
-      height: 100%;
       color: #bbb;
       background-color: #333;
       cursor: pointer;
@@ -386,9 +386,26 @@ body {
     border: 0;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    display: block;
     background-color: #3c3f41;
     border: 1px solid #323232;
     padding: .3em; }
+    .text-tools .text-properties .txt-field {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: block;
+      background-color: #555;
+      color: #bbb;
+      outline: 0;
+      width: 100%;
+      font-size: .75em;
+      height: 2em;
+      padding: .15em; }
+      .text-tools .text-properties .txt-field:focus {
+        background-color: #2b2b2b; }
   .text-tools h2 {
     border: 0;
     margin: 0;
@@ -416,4 +433,11 @@ body {
   display: block;
   width: 200px;
   flex: 5;
+  position: relative;
   background-color: #2b2b2b; }
+  .canvas-image .canvas-output {
+    background-color: #5b5b5b;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%); }
