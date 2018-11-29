@@ -266,7 +266,8 @@ body {
     cursor: pointer;
     width: 100%;
     height: 2em;
-    border: #292929 solid 1px; }
+    border: #292929 solid 1px;
+    margin-bottom: .3em; }
 
 /* @import '../variables'; */
 /* @import '../mixins'; */

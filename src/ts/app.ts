@@ -1,5 +1,5 @@
-// import {ImageUploaderComponent} from './components/ImageUploader.component';
-// import {Observer} from 'rxjs';
+import {ImageUploaderComponent} from './components/ImageUploader.component';
+import {Observer} from 'rxjs';
 //
 // // window.addEventListener('load', () => {
 // //     const displayCanvas = new DisplayCanvas({querySelectorString: '.display'});
@@ -50,32 +50,39 @@
 // //     });
 // // });
 //
-// const imageUploader = new ImageUploaderComponent('.image-uploader', 'Załaduj obraz z pliku', 'Wybierz plik');
-//
-// class MyObserver implements Observer<any> {
-//     public next(value: any) {
-//         console.log('next');
-//         showImage(value);
-//     }
-//
-//     public error(err: any) {
-//         console.log('error ocurred' + err);
-//     }
-//
-//     public complete() {
-//         console.log('completed');
-//     }
-// }
-//
-// imageUploader.subscribe(new MyObserver());
-//
-// const canvas = <HTMLCanvasElement> document.querySelector('.display');
-// const context = canvas.getContext('2d');
-// function showImage(img) {
-//     console.log(img.width);
-//     console.log(img.height);
-//     const imgHeight = ((600 / img.width) * img.height);
-//     console.log(imgHeight);
-//     canvas.height = imgHeight;
-//     context.drawImage(img, 0, 0, 600, imgHeight);
-// }
+
+window.addEventListener('load', () => {
+    const imageUploader = new ImageUploaderComponent({
+        querySelectorString: '.img-uploader-1',
+        elementClass: 'image-uploader',
+    });
+
+    class MyObserver implements Observer<any> {
+        public next(value: any) {
+            console.log('next');
+            showImage(value);
+        }
+
+        public error(err: any) {
+            console.log('error ocurred' + err);
+        }
+
+        public complete() {
+            console.log('completed');
+        }
+    }
+
+    imageUploader.subscribe(new MyObserver());
+
+    const canvas = <HTMLCanvasElement> document.querySelector('.canvas-image .canvas-output');
+    const context = canvas.getContext('2d');
+
+    function showImage(img: HTMLImageElement) {
+        console.log(img.width);
+        console.log(img.height);
+        const imgHeight = ((600 / img.width) * img.height);
+        console.log(imgHeight);
+        canvas.height = imgHeight;
+        context.drawImage(img, 0, 0, 600, imgHeight);
+    }
+});

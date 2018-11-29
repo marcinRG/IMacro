@@ -3,19 +3,26 @@ import 'rxjs/add/observable/fromEvent';
 import {ISubscribe} from '../model/interfaces/ISubscribe';
 import {Observer} from 'rxjs/Observer';
 import 'rxjs/add/operator/mergeMap';
+import {IImageUploaderProperties} from '../model/interfaces/Properties/IImageUploader.Properties';
 
 export class ImageUploaderComponent implements ISubscribe<any> {
     private htmlElement;
-    private inputUpload;
-    private upLoadName;
-    //private thumbnail;
+    private htmlUploadButton;
+    private htmlUploadInput;
+    private labelButton;
+    private labelForm;
+    private labelImage;
+    private labelImageName;
+    private labelImageSize;
     private fileEventSource: Observable<any>;
 
-    constructor(elementQuery: string, labelTxt: string, btnTxt: string) {
-        this.htmlElement = document.querySelector(elementQuery);
+    constructor(properties: IImageUploaderProperties) {
+        this.htmlElement = document.querySelector(properties.querySelectorString);
         if (this.htmlElement) {
-            this.htmlElement.innerHTML = null;
-            this.createElement(labelTxt, btnTxt);
+            this.setProperties(properties);
+            this.htmlElement.innerHTML = this.createHTMLElement();
+            this.htmlElement.classList.add(properties.elementClass);
+            this.setHTMLElements();
         }
     }
 
@@ -27,38 +34,60 @@ export class ImageUploaderComponent implements ISubscribe<any> {
         this.fileEventSource.subscribe(observer);
     }
 
-    private createElement(labelText: string, buttonText: string) {
-        const innerHTML = `
-        <form class='upload-form'>
-           <label class='upload-label'>${labelText}</label>
-           <input class='upload-button' type='button' value='${buttonText}'>
-           <input class='upload-input' type='file' accept='image/x-png,image/jpeg' style='display:none'>
-           <span class='upload-text'></span>
-        </form>`.trim();
-        this.htmlElement.innerHTML = innerHTML;
-        this.inputUpload = this.htmlElement.querySelector('.upload-input');
-        this.upLoadName = this.htmlElement.querySelector('.upload-text');
-        const btn = this.htmlElement.querySelector('.upload-button');
+    private setProperties(properties: IImageUploaderProperties) {
+        this.labelForm = properties.labelForm || 'image uploader';
+        this.labelButton = properties.labelButton || 'upload an image';
+        this.labelImage = properties.labelImage || 'image';
+        this.labelImageName = properties.labelImageName || 'image name';
+        this.labelImageSize = properties.labelImageSize || 'image size';
+    }
 
-        btn.addEventListener('click', () => {
-            this.inputUpload.click();
+    private setHTMLElements() {
+        this.htmlUploadInput = this.htmlElement.querySelector('.upload-input');
+        this.htmlUploadButton = this.htmlElement.querySelector('.upload-button');
+        this.htmlUploadButton.addEventListener('click', () => {
+            this.htmlUploadInput.click();
         });
-
-        this.fileEventSource = Observable.fromEvent(this.inputUpload, 'change')
+        this.fileEventSource = Observable.fromEvent(this.htmlUploadInput, 'change')
             .flatMap((event: Event) => this.loadImage(event));
+    }
+
+    private createImageThumbnail() {
+        const innerHTML = `
+            <label>${this.labelImage}</label>
+            <img src="img/img-template.png" class="upload-image">
+            <label>${this.labelImageName}</label>
+            <span class='upload-text'></span>
+            <label>${this.labelImageSize}</label>
+            <span class="upload-image-properties"></span>
+        `.trim();
+        return innerHTML;
+    }
+
+    private createHTMLElement() {
+        const innerHTML = `
+        <div class="image-uploader">
+           <form class='upload-form'>
+                <label>${this.labelForm}</label>
+                <input class='upload-button' type='button' value='${this.labelButton}'>
+                <input class='upload-input' type='file' accept='image/x-png,image/jpeg' style='display:none'>
+                <div class="image-thumbnail">
+                </div>
+            </form>
+        </div>`.trim();
+        return innerHTML;
     }
 
     private loadImage(event: Event) {
         return Observable.create((observer) => {
             const file: File = (<HTMLInputElement> event.target).files[0];
             if (file) {
-                this.addFileName(file);
                 const fileReader = new FileReader();
                 fileReader.addEventListener('load', () => {
-                    const img = new Image();
+                    const img: HTMLImageElement = new Image();
                     img.src = fileReader.result;
                     img.addEventListener('load', () => {
-                        this.addImgThumbnail();
+                        this.addImgThumbnail(file.name, fileReader.result, img);
                         observer.next(img);
                         observer.complete();
                     });
@@ -68,11 +97,14 @@ export class ImageUploaderComponent implements ISubscribe<any> {
         });
     }
 
-    private addImgThumbnail() {
-       console.log('not implemented');
-    }
-
-    private addFileName(file: File) {
-        this.upLoadName.textContent = file.name;
+    private addImgThumbnail(fileName: string, imgFile: HTMLImageElement, img: any) {
+        const imgThumbnail = this.htmlElement.querySelector('.image-thumbnail');
+        imgThumbnail.innerHTML = this.createImageThumbnail();
+        const imgName = this.htmlElement.querySelector('.upload-text');
+        const imgImage = this.htmlElement.querySelector('.upload-image');
+        const imgSize = this.htmlElement.querySelector('.upload-image-properties');
+        imgName.textContent = fileName;
+        imgImage.src = imgFile;
+        imgSize.textContent = img.width + ' x ' + img.height;
     }
 }
