@@ -205,6 +205,132 @@ body {
 
 /* @import '../variables'; */
 /* @import '../mixins'; */
+.multi-combo-box-cuie {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+  position: relative; }
+  .multi-combo-box-cuie .name-txt {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    box-sizing: border-box;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 35px;
+    display: block;
+    width: 200px; }
+  .multi-combo-box-cuie .color-box {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    height: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    width: 20px;
+    border: 1px solid #d7d7d7;
+    border-radius: 2px; }
+  .multi-combo-box-cuie .font-box {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px; }
+  .multi-combo-box-cuie .inputs {
+    overflow: hidden;
+    border: #292929 solid 1px;
+    height: 1.55em; }
+    .multi-combo-box-cuie .inputs::after {
+      clear: both; }
+    .multi-combo-box-cuie .inputs .color-container,
+    .multi-combo-box-cuie .inputs .font-container {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: block;
+      background-color: #555;
+      color: #bbb;
+      outline: 0;
+      float: left;
+      font-size: .75em;
+      height: 100%;
+      padding: .15em;
+      width: 80%;
+      height: 100%;
+      position: relative; }
+      .multi-combo-box-cuie .inputs .color-container:focus,
+      .multi-combo-box-cuie .inputs .font-container:focus {
+        background-color: #2b2b2b; }
+    .multi-combo-box-cuie .inputs .input-btn {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: block;
+      font-size: .65em;
+      outline: 0;
+      float: right;
+      height: 100%;
+      color: #bbb;
+      background-color: #333;
+      cursor: pointer;
+      width: 20%; }
+      .multi-combo-box-cuie .inputs .input-btn::after {
+        display: inline-block;
+        content: '\025BC';
+        transform: rotateZ(0);
+        transition-duration: .3s;
+        transition-property: transform; }
+      .multi-combo-box-cuie .inputs .input-btn.unfolded::after {
+        transform: rotateZ(180deg); }
+  .multi-combo-box-cuie .list-elements {
+    display: none;
+    width: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    z-index: 11;
+    top: 100%;
+    left: 0;
+    background-color: #2b2b2b;
+    list-style-type: none;
+    border: 1px solid #292929;
+    border-top: 0;
+    overflow: auto; }
+    .multi-combo-box-cuie .list-elements .li-elem {
+      border: 0;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: block;
+      height: 2em;
+      font-size: .75em;
+      cursor: pointer;
+      position: relative;
+      color: #bbb; }
+      .multi-combo-box-cuie .list-elements .li-elem:hover {
+        background-color: #bbb;
+        color: #2b2b2b; }
+
+/* @import '../variables'; */
+/* @import '../mixins'; */
 .image-uploader {
   border: 0;
   margin: 0;

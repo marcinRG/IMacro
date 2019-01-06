@@ -18,6 +18,7 @@ export class ImageUploaderComponent implements ISubscribe<any> {
 
     constructor(properties: IImageUploaderProperties) {
         this.htmlElement = document.querySelector(properties.querySelectorString);
+        console.log(this.htmlElement);
         if (this.htmlElement) {
             this.setProperties(properties);
             this.htmlElement.innerHTML = this.createHTMLElement();
@@ -44,7 +45,9 @@ export class ImageUploaderComponent implements ISubscribe<any> {
 
     private setHTMLElements() {
         this.htmlUploadInput = this.htmlElement.querySelector('.upload-input');
+        console.log(this.htmlUploadInput);
         this.htmlUploadButton = this.htmlElement.querySelector('.upload-button');
+        console.log(this.htmlUploadButton);
         this.htmlUploadButton.addEventListener('click', () => {
             this.htmlUploadInput.click();
         });
@@ -87,6 +90,7 @@ export class ImageUploaderComponent implements ISubscribe<any> {
                     const img: HTMLImageElement = new Image();
                     img.src = fileReader.result;
                     img.addEventListener('load', () => {
+                        console.log('listener fired');
                         this.addImgThumbnail(file.name, fileReader.result, img);
                         observer.next(img);
                         observer.complete();
@@ -99,7 +103,10 @@ export class ImageUploaderComponent implements ISubscribe<any> {
 
     private addImgThumbnail(fileName: string, imgFile: HTMLImageElement, img: any) {
         const imgThumbnail = this.htmlElement.querySelector('.image-thumbnail');
-        imgThumbnail.innerHTML = this.createImageThumbnail();
+        console.log('creating img thumbnial');
+        const thumb = this.createImageThumbnail();
+        console.log(thumb);
+        imgThumbnail.innerHTML = thumb;
         const imgName = this.htmlElement.querySelector('.upload-text');
         const imgImage = this.htmlElement.querySelector('.upload-image');
         const imgSize = this.htmlElement.querySelector('.upload-image-properties');

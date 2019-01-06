@@ -1,5 +1,8 @@
 import {ImageUploaderComponent} from './components/ImageUploader.component';
 import {Observer} from 'rxjs';
+import {CanvasOptionsComponent} from './components/CanvasOptions.component';
+import {IColor} from 'crappyuielements';
+import {ImageOptionsComponent} from './components/ImageOptions.component';
 //
 // // window.addEventListener('load', () => {
 // //     const displayCanvas = new DisplayCanvas({querySelectorString: '.display'});
@@ -51,38 +54,96 @@ import {Observer} from 'rxjs';
 // // });
 //
 
+const colorsList: IColor[] = [
+    {
+        id: '1',
+        name: 'blue',
+        value: '#1515b6',
+    },
+    {
+        id: '2',
+        name: 'white',
+        value: '#d3e3ff',
+    },
+    {
+        id: '3',
+        name: 'black',
+        value: '#000',
+    },
+    {
+        id: '4',
+        name: 'grey',
+        value: '#555555',
+    },
+    {
+        id: '5',
+        name: 'red',
+        value: '#ff2121',
+    },
+    {
+        id: '6',
+        name: 'yellow',
+        value: '#fffc1b',
+    },
+
+];
+const directions: string[] = [
+    'top-left',
+    'top-center',
+    'top-right',
+    'left-center',
+    'center-center',
+    'right-center',
+    'bottom-left',
+    'bottom-center',
+    'bottom-right'];
+const rotationsCenter = [
+    'top-left',
+    'right-center',
+    'center',
+    'bottom-left',
+    'bottom-right'];
+
 window.addEventListener('load', () => {
-    const imageUploader = new ImageUploaderComponent({
-        querySelectorString: '.img-uploader-1',
-        elementClass: 'image-uploader',
+    const canvasOptions = new CanvasOptionsComponent({
+        querySelectorString: '.canvas-options-1',
+        elementClass: 'canvas-settings',
+        colors: colorsList,
     });
 
-    class MyObserver implements Observer<any> {
-        public next(value: any) {
-            console.log('next');
-            showImage(value);
-        }
+    const imageOptions = new ImageOptionsComponent({
+        elementClass: 'image-options',
+        querySelectorString: '.image-options-1',
+        directionsArray: directions,
+        rotationsCenterArray: rotationsCenter,
+    });
 
-        public error(err: any) {
-            console.log('error ocurred' + err);
-        }
+    // class MyObserver implements Observer<any> {
+    //     public next(value: any) {
+    //         console.log('next');
+    //         showImage(value);
+    //     }
+    //
+    //     public error(err: any) {
+    //         console.log('error ocurred' + err);
+    //     }
+    //
+    //     public complete() {
+    //         console.log('completed');
+    //     }
+    // }
 
-        public complete() {
-            console.log('completed');
-        }
-    }
+    //imageUploader.subscribe(new MyObserver());
 
-    imageUploader.subscribe(new MyObserver());
-
-    const canvas = <HTMLCanvasElement> document.querySelector('.canvas-image .canvas-output');
-    const context = canvas.getContext('2d');
-
-    function showImage(img: HTMLImageElement) {
-        console.log(img.width);
-        console.log(img.height);
-        const imgHeight = ((600 / img.width) * img.height);
-        console.log(imgHeight);
-        canvas.height = imgHeight;
-        context.drawImage(img, 0, 0, 600, imgHeight);
-    }
+    // const canvas = <HTMLCanvasElement> document.querySelector('.canvas-image .canvas-output');
+    // const context = canvas.getContext('2d');
+    //
+    // function showImage(img: HTMLImageElement) {
+    //     console.log(img.width);
+    //     console.log(img.height);
+    //     const imgHeight = ((600 / img.width) * img.height);
+    //     console.log(imgHeight);
+    //     canvas.height = imgHeight;
+    //     context.drawImage(img, 0, 0, 600, imgHeight);
+    // }
 });

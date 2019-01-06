@@ -1,13 +1,13 @@
-import {IDisplayCanvasProperties} from '../model/interfaces/Properties/IDisplayCanvas.Properties';
 import {ITextProperties} from '../model/interfaces/ITextProperties';
 import {IGlobalCanvasSettings} from '../model/interfaces/IGlobalCanvasSettings';
+import {IComponentProperties} from 'crappyuielements';
 
 export class DisplayCanvas {
     private htmlCanvasElement;
     private context2d;
     private shadowsAndAlphaSettings: IGlobalCanvasSettings;
 
-    constructor(properties: IDisplayCanvasProperties) {
+    constructor(properties: IComponentProperties) {
         this.setElements(properties);
     }
 
@@ -33,7 +33,7 @@ export class DisplayCanvas {
         }
     }
 
-    private setElements(properties: IDisplayCanvasProperties) {
+    private setElements(properties: IComponentProperties) {
         this.htmlCanvasElement = <HTMLCanvasElement> document.querySelector(properties.querySelectorString);
         if (this.htmlCanvasElement) {
             this.context2d = this.htmlCanvasElement.getContext('2d');

@@ -5,6 +5,7 @@
   ],
   "jsRules": {},
   "rules": {
+    "import-spacing": false,
     "comment-format": false,
     "ordered-imports": false,
     "no-shadowed-variable": false,
