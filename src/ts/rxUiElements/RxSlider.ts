@@ -6,14 +6,18 @@ import {ISliderProperties, ISubscribe, IValueTransformation, Slider} from 'crapp
 export class RxSlider extends Slider implements ISubscribe<any> {
     private subject: Subject<any> = new Subject<any>();
 
-    constructor(properties: ISliderProperties, public minMaxValue: IValueTransformation<any>) {
+    constructor(properties: ISliderProperties, public minMaxValue: IValueTransformation<any>,
+                private propertyName: string) {
         super(properties, minMaxValue);
     }
 
     public changeValue(x: number, min: number, max: number) {
         this.minMaxValue.value = this.minMaxValue.reverseTransformation(
             x, min, max);
-        this.subject.next(this.minMaxValue.value);
+        this.subject.next({
+            name: this.propertyName,
+            value: this.minMaxValue.value,
+        });
     }
 
     public getObservable(): Observable<any> {

@@ -1,23 +1,27 @@
 import {IImageOptionsProperties} from '../model/interfaces/Properties/IImageOptions.Properties';
 import {ImageUploaderComponent} from './ImageUploader.component';
-import {MinMaxValue, PlainTextArrayWithFilterSingleSelection} from 'crappyuielements';
 import {RxDirectionsRadioGroup} from '../rxUiElements/RXDirectionsRadioGroup';
 import {RxSlider} from '../rxUiElements/RxSlider';
+import * as utils from './../utils/Utils';
+import {ISubscribe} from 'crappyuielements';
+import {Observable, Observer, Subject} from 'rxjs';
+import {ImagePropertyNames} from '../model/enums/ImagePropertyNames';
 
-export class ImageOptionsComponent {
+export class ImageOptionsComponent implements ISubscribe<any> {
     private htmlElement;
-    private imageUploader;
-    private imagePositionBox;
-    private imageRotationCenter;
-    private imageRotationSlider;
-    private imageSizeSlider;
-    private imageTransparencySlider;
+    private imageUploader: ImageUploaderComponent;
+    private imagePositionBox: RxDirectionsRadioGroup;
+    private imageRotationCenter: RxDirectionsRadioGroup;
+    private imageRotationSlider: RxSlider;
+    private imageSizeSlider: RxSlider;
+    private imageTransparencySlider: RxSlider;
     private componentLabel: string;
     private positionLabel: string;
     private rotationLabel: string;
     private rotationCenterLabel: string;
     private sizeLabel: string;
     private transparencyLabel: string;
+    private subject: Subject<any> = new Subject<any>();
 
     constructor(properties: IImageOptionsProperties) {
         this.htmlElement = document.querySelector(properties.querySelectorString);
@@ -26,7 +30,25 @@ export class ImageOptionsComponent {
             this.htmlElement.innerHTML = this.createHTMLElement();
             this.htmlElement.classList.add(properties.elementClass);
             this.setHTMLElements(properties);
+            this.subscribeToUIComponents();
         }
+    }
+
+    public getObservable(): Observable<any> {
+        return this.subject;
+    }
+
+    public subscribe(observer: Observer<any>) {
+        this.subject.subscribe(observer);
+    }
+
+    private subscribeToUIComponents() {
+        this.imageUploader.subscribe(this.subject);
+        this.imagePositionBox.subscribe(this.subject);
+        this.imageRotationCenter.subscribe(this.subject);
+        this.imageRotationSlider.subscribe(this.subject);
+        this.imageSizeSlider.subscribe(this.subject);
+        this.imageTransparencySlider.subscribe(this.subject);
     }
 
     private setProperties(properties: IImageOptionsProperties) {
@@ -40,7 +62,7 @@ export class ImageOptionsComponent {
 
     private setHTMLElements(properties: IImageOptionsProperties) {
         const imageUploaderSelector = `${properties.querySelectorString} .img-uploader-1`;
-        const postionBtnGroupSelector = `${properties.querySelectorString} .position-radio-group-image`;
+        const positionBtnGroupSelector = `${properties.querySelectorString} .position-radio-group-image`;
         const rotationSliderSelector = `${properties.querySelectorString} .rotation-slider-image`;
         const rotationBtnGroupSelector = `${properties.querySelectorString} .rotation-radio-group-image`;
         const sizeSliderSelector = `${properties.querySelectorString} .size-slider-image`;
@@ -49,32 +71,18 @@ export class ImageOptionsComponent {
             querySelectorString: imageUploaderSelector,
             elementClass: 'image-uploader',
         });
-        const txtArray = new PlainTextArrayWithFilterSingleSelection(properties.directionsArray);
-        this.imagePositionBox = new RxDirectionsRadioGroup({
-            elementClass: 'radio-btn-group-cuie',
-            querySelectorString: postionBtnGroupSelector,
-            radioGroupName: 'directrion-group',
-        }, txtArray);
-
-        const txtArray2 = new PlainTextArrayWithFilterSingleSelection(properties.rotationsCenterArray);
-        this.imageRotationCenter = new RxDirectionsRadioGroup({
-            elementClass: 'radio-btn-group-cuie',
-            querySelectorString: rotationBtnGroupSelector,
-            radioGroupName: 'directrion-group',
-        }, txtArray2);
-        this.imageRotationSlider = this.createSlider(rotationSliderSelector);
-        this.imageSizeSlider = this.createSlider(sizeSliderSelector);
-        this.imageTransparencySlider = this.createSlider(transparencySliderSelector);
-    };
-
-    private createSlider(selector: string) {
-        const minMax = new MinMaxValue(50, 0, 100);
-        const slider = new RxSlider({
-            querySelectorString: selector,
-            elementClass: 'slider-cuie',
-            pointerWidth: 5,
-        }, minMax);
-        return slider;
+        this.imagePositionBox = utils.createDirectionsRadioGroup(
+            positionBtnGroupSelector, properties.directionsArray, ImagePropertyNames.IMAGE_POSITION,
+            'directrion-group');
+        this.imageRotationCenter = utils.createDirectionsRadioGroup(
+            rotationBtnGroupSelector, properties.rotationsCenterArray,
+            ImagePropertyNames.IMAGE_ROTATION_CENTER,'rotation-group');
+        this.imageRotationSlider = utils.createSlider(0, 100, 50,
+            ImagePropertyNames.IMAGE_ROTATION, rotationSliderSelector);
+        this.imageSizeSlider = utils.createSlider(0, 100, 50,
+            ImagePropertyNames.IMAGE_SCALE, sizeSliderSelector);
+        this.imageTransparencySlider = utils.createSlider(0, 100, 50,
+            ImagePropertyNames.IMAGE_TRANSPARENCY, transparencySliderSelector);
     }
 
     private createHTMLElement() {

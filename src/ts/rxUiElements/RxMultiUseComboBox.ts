@@ -14,7 +14,8 @@ export class RxMultiUseComboBox extends MultiUseComboBox implements ISubscribe<a
     private subject: Subject<any> = new Subject<any>();
 
     constructor(properties: IMultiUseComboBoxProperties,
-                public selectableList: IFilteredValuesList<IHasID> & IList<IHasID> & IGetText<IHasID>) {
+                public selectableList: IFilteredValuesList<IHasID> & IList<IHasID> & IGetText<IHasID>,
+                private propertyName: string) {
         super(properties, selectableList);
     }
 

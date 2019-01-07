@@ -1,22 +1,21 @@
 import {ICanvasOptionsProperties} from '../model/interfaces/Properties/ICanvasOptions.Properties';
-import {
-    ColorRenderer,
-    IColor,
-    IdArrayWithSingleSelection,
-    MinMaxValue,
-} from 'crappyuielements';
 import {RxSlider} from '../rxUiElements/RxSlider';
 import {RxMultiUseComboBox} from '../rxUiElements/RxMultiUseComboBox';
+import * as utils from './../utils/Utils';
+import {ISubscribe} from 'crappyuielements';
+import {Observable, Observer, Subject} from 'rxjs';
+import {CanvasPropertyNames} from '../model/enums/CanvasPropertyNames';
 
-export class CanvasOptionsComponent {
+export class CanvasOptionsComponent implements ISubscribe<any> {
     private htmlElement;
-    private colorBox;
-    private heightSlider;
-    private widthSlider;
+    private colorBox: RxMultiUseComboBox;
+    private heightSlider: RxSlider;
+    private widthSlider: RxSlider;
     private componentLabel: string;
     private colorLabel: string;
     private widthLabel: string;
     private heightLabel: string;
+    private subject: Subject<any> = new Subject<any>();
 
     constructor(properties: ICanvasOptionsProperties) {
         this.htmlElement = document.querySelector(properties.querySelectorString);
@@ -25,7 +24,22 @@ export class CanvasOptionsComponent {
             this.htmlElement.innerHTML = this.createHTMLElement();
             this.htmlElement.classList.add(properties.elementClass);
             this.setHTMLElements(properties);
+            this.subscribeToUIComponents();
         }
+    }
+
+    public getObservable(): Observable<any> {
+        return this.subject;
+    }
+
+    public subscribe(observer: Observer<any>) {
+        this.subject.subscribe(observer);
+    }
+
+    private subscribeToUIComponents() {
+        this.heightSlider.subscribe(this.subject);
+        this.widthSlider.subscribe(this.subject);
+        this.colorBox.subscribe(this.subject);
     }
 
     private setProperties(properties: ICanvasOptionsProperties) {
@@ -37,34 +51,14 @@ export class CanvasOptionsComponent {
 
     private setHTMLElements(properties: ICanvasOptionsProperties) {
         const colorBoxSelector = `${properties.querySelectorString} .color-controller-canvas`;
-        this.colorBox = this.createColorBox(colorBoxSelector, properties.colors);
+        this.colorBox = utils.createColorBox(colorBoxSelector,
+            CanvasPropertyNames.CANVAS_COLOR, properties.colors);
         const widthSelector = `${properties.querySelectorString} .width-controller-canvas`;
-        this.widthSlider = this.createSlider(widthSelector);
+        this.widthSlider = utils.createSlider(0, 100, 50,
+            CanvasPropertyNames.CANVAS_WIDTH, widthSelector);
         const heightSelector = `${properties.querySelectorString} .height-controller-canvas`;
-        this.heightSlider = this.createSlider(heightSelector);
-    }
-
-    private createColorBox(selector: string, colors: IColor[]) {
-        const colorRenderer = new ColorRenderer('color-box', 'name-txt');
-        const colorArrayId = new IdArrayWithSingleSelection<IColor>(colors, colorRenderer, 'name', colors[0]);
-        const colorComboBox = new RxMultiUseComboBox({
-            querySelectorString: selector,
-            elementClass: 'multi-combo-box-cuie',
-            containerClass: 'color-container',
-            maxSize: 5,
-            menuZIndex: 50,
-        }, colorArrayId);
-        return colorComboBox;
-    }
-
-    private createSlider(selector: string) {
-        const minMax = new MinMaxValue(50, 0, 100);
-        const slider = new RxSlider({
-            querySelectorString: selector,
-            elementClass: 'slider-cuie',
-            pointerWidth: 5,
-        }, minMax);
-        return slider;
+        this.heightSlider = utils.createSlider(0, 100, 50,
+            CanvasPropertyNames.CANVAS_HEIGHT, heightSelector);
     }
 
     private createHTMLElement() {

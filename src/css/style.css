@@ -167,44 +167,6 @@ body {
 
 /* @import '../variables'; */
 /* @import '../mixins'; */
-.slider-cuie {
-  overflow: hidden;
-  border: #292929 solid 1px;
-  height: 1.55em;
-  position: relative;
-  padding: .3em 0 .2em; }
-  .slider-cuie::after {
-    clear: both; }
-  .slider-cuie .beam {
-    width: 100%;
-    border: 1px solid #555;
-    height: .5em;
-    top: 50%;
-    left: 0;
-    position: absolute;
-    transform: translateY(-50%);
-    background-color: #333; }
-  .slider-cuie .click-field {
-    width: 90%;
-    height: 1.5em;
-    margin: 0 auto;
-    position: relative;
-    background-color: transparent; }
-  .slider-cuie .beam-fill {
-    width: 0;
-    height: 100%;
-    background-color: #bbb; }
-  .slider-cuie .pointer {
-    height: 1.3em;
-    background-color: #5b5b5b;
-    border: 1px solid #555;
-    position: absolute;
-    width: 5px;
-    top: 0;
-    left: 0; }
-
-/* @import '../variables'; */
-/* @import '../mixins'; */
 .multi-combo-box-cuie {
   border: 0;
   margin: 0;
@@ -328,6 +290,44 @@ body {
       .multi-combo-box-cuie .list-elements .li-elem:hover {
         background-color: #bbb;
         color: #2b2b2b; }
+
+/* @import '../variables'; */
+/* @import '../mixins'; */
+.slider-cuie {
+  overflow: hidden;
+  border: #292929 solid 1px;
+  height: 1.55em;
+  position: relative;
+  padding: .3em 0 .2em; }
+  .slider-cuie::after {
+    clear: both; }
+  .slider-cuie .beam {
+    width: 100%;
+    border: 1px solid #555;
+    height: .5em;
+    top: 50%;
+    left: 0;
+    position: absolute;
+    transform: translateY(-50%);
+    background-color: #333; }
+  .slider-cuie .click-field {
+    width: 90%;
+    height: 1.5em;
+    margin: 0 auto;
+    position: relative;
+    background-color: transparent; }
+  .slider-cuie .beam-fill {
+    width: 0;
+    height: 100%;
+    background-color: #bbb; }
+  .slider-cuie .pointer {
+    height: 1.3em;
+    background-color: #5b5b5b;
+    border: 1px solid #555;
+    position: absolute;
+    width: 5px;
+    top: 0;
+    left: 0; }
 
 /* @import '../variables'; */
 /* @import '../mixins'; */
