@@ -1,6 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
-import {ISubscribe} from '../model/interfaces/ISubscribe';
+import {ISubscribe} from 'crappyuielements';
 import {Observer} from 'rxjs/Observer';
 import 'rxjs/add/operator/mergeMap';
 import {IImageUploaderProperties} from '../model/interfaces/Properties/IImageUploader.Properties';

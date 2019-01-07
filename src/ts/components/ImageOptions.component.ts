@@ -1,6 +1,8 @@
 import {IImageOptionsProperties} from '../model/interfaces/Properties/IImageOptions.Properties';
 import {ImageUploaderComponent} from './ImageUploader.component';
-import {DirectionsRadioBtnsGroup, MinMaxValue, PlainTextArrayWithFilterSingleSelection, Slider} from 'crappyuielements';
+import {MinMaxValue, PlainTextArrayWithFilterSingleSelection} from 'crappyuielements';
+import {RxDirectionsRadioGroup} from '../rxUiElements/RXDirectionsRadioGroup';
+import {RxSlider} from '../rxUiElements/RxSlider';
 
 export class ImageOptionsComponent {
     private htmlElement;
@@ -48,14 +50,14 @@ export class ImageOptionsComponent {
             elementClass: 'image-uploader',
         });
         const txtArray = new PlainTextArrayWithFilterSingleSelection(properties.directionsArray);
-        this.imagePositionBox = new DirectionsRadioBtnsGroup({
+        this.imagePositionBox = new RxDirectionsRadioGroup({
             elementClass: 'radio-btn-group-cuie',
             querySelectorString: postionBtnGroupSelector,
             radioGroupName: 'directrion-group',
         }, txtArray);
 
         const txtArray2 = new PlainTextArrayWithFilterSingleSelection(properties.rotationsCenterArray);
-        this.imageRotationCenter = new DirectionsRadioBtnsGroup({
+        this.imageRotationCenter = new RxDirectionsRadioGroup({
             elementClass: 'radio-btn-group-cuie',
             querySelectorString: rotationBtnGroupSelector,
             radioGroupName: 'directrion-group',
@@ -67,7 +69,7 @@ export class ImageOptionsComponent {
 
     private createSlider(selector: string) {
         const minMax = new MinMaxValue(50, 0, 100);
-        const slider = new Slider({
+        const slider = new RxSlider({
             querySelectorString: selector,
             elementClass: 'slider-cuie',
             pointerWidth: 5,

@@ -4,9 +4,9 @@ import {
     IColor,
     IdArrayWithSingleSelection,
     MinMaxValue,
-    MultiUseComboBox,
-    Slider,
 } from 'crappyuielements';
+import {RxSlider} from '../rxUiElements/RxSlider';
+import {RxMultiUseComboBox} from '../rxUiElements/RxMultiUseComboBox';
 
 export class CanvasOptionsComponent {
     private htmlElement;
@@ -47,7 +47,7 @@ export class CanvasOptionsComponent {
     private createColorBox(selector: string, colors: IColor[]) {
         const colorRenderer = new ColorRenderer('color-box', 'name-txt');
         const colorArrayId = new IdArrayWithSingleSelection<IColor>(colors, colorRenderer, 'name', colors[0]);
-        const colorComboBox = new MultiUseComboBox({
+        const colorComboBox = new RxMultiUseComboBox({
             querySelectorString: selector,
             elementClass: 'multi-combo-box-cuie',
             containerClass: 'color-container',
@@ -59,7 +59,7 @@ export class CanvasOptionsComponent {
 
     private createSlider(selector: string) {
         const minMax = new MinMaxValue(50, 0, 100);
-        const slider = new Slider({
+        const slider = new RxSlider({
             querySelectorString: selector,
             elementClass: 'slider-cuie',
             pointerWidth: 5,
