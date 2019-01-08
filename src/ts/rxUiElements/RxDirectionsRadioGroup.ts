@@ -2,9 +2,10 @@ import {DirectionsRadioBtnsGroup, IDirectionsRadioBtnsGroupProperties, IList, IS
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
+import {IEvent} from '../model/interfaces/IEvent';
 
 export class RxDirectionsRadioGroup extends DirectionsRadioBtnsGroup implements ISubscribe<any> {
-    private subject: Subject<any> = new Subject<any>();
+    private subject: Subject<IEvent> = new Subject();
 
     constructor(properties: IDirectionsRadioBtnsGroupProperties, public list: IList<any>,
                 private propertyName: string) {

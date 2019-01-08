@@ -4,6 +4,8 @@ import {ISubscribe} from 'crappyuielements';
 import {Observer} from 'rxjs/Observer';
 import 'rxjs/add/operator/mergeMap';
 import {IImageUploaderProperties} from '../model/interfaces/Properties/IImageUploader.Properties';
+import {IEvent} from '../model/interfaces/IEvent';
+import {ImagePropertyNames} from '../model/enums/ImagePropertyNames';
 
 export class ImageUploaderComponent implements ISubscribe<any> {
     private htmlElement;
@@ -88,7 +90,7 @@ export class ImageUploaderComponent implements ISubscribe<any> {
                     img.src = fileReader.result;
                     img.addEventListener('load', () => {
                         this.addImgThumbnail(file.name, fileReader.result, img);
-                        observer.next(img);
+                        observer.next({name: ImagePropertyNames.IMAGE, value: img});
                         observer.complete();
                     });
                 });

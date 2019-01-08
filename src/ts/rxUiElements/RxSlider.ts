@@ -2,9 +2,10 @@ import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
 import {ISliderProperties, ISubscribe, IValueTransformation, Slider} from 'crappyuielements';
+import {IEvent} from '../model/interfaces/IEvent';
 
 export class RxSlider extends Slider implements ISubscribe<any> {
-    private subject: Subject<any> = new Subject<any>();
+    private subject: Subject<IEvent> = new Subject();
 
     constructor(properties: ISliderProperties, public minMaxValue: IValueTransformation<any>,
                 private propertyName: string) {

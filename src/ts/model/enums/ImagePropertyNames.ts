@@ -4,4 +4,5 @@ export enum ImagePropertyNames {
     IMAGE_TRANSPARENCY = 'image transparency',
     IMAGE_ROTATION_CENTER = 'image rotation center',
     IMAGE_POSITION = 'image position',
+    IMAGE = 'image source',
 }

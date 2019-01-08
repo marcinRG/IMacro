@@ -4,7 +4,8 @@ export enum TextPropertyNames {
     TEXT_ROTATION = 'text rotation',
     TEXT_SHADOW_BLUR = 'text shadow blur',
     TEXT_SHADOW_OFFSET_X = 'text shadow offset x',
-    TEXT_SHADOW_OFFSET_Y= 'text shadow offset y',
+    TEXT_SHADOW_OFFSET_Y = 'text shadow offset y',
     TEXT_COLOR = 'text color',
     TEXT_SHADOW_COLOR = 'text shadow color',
+    TEXT = 'text',
 }
