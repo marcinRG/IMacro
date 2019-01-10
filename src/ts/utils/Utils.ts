@@ -3,7 +3,7 @@ import {
     IColor,
     IdArrayWithSingleSelection,
     MinMaxValue,
-    PlainTextArrayWithFilterSingleSelection
+    PlainTextArrayWithFilterSingleSelection,
 } from 'crappyuielements';
 import {RxSlider} from '../rxUiElements/RxSlider';
 import {RxMultiUseComboBox} from '../rxUiElements/RxMultiUseComboBox';
@@ -19,9 +19,9 @@ export function createSlider(min, max, value, propertyName, selector) {
     return slider;
 }
 
-export function createColorBox(selector: string, propertyName: string, colors: IColor[]) {
+export function createColorBox(selector: string, propertyName: string, colors: IColor[], selectedColor: IColor = null) {
     const colorRenderer = new ColorRenderer('color-box', 'name-txt');
-    const colorArrayId = new IdArrayWithSingleSelection<IColor>(colors, colorRenderer, 'name', colors[0]);
+    const colorArrayId = new IdArrayWithSingleSelection<IColor>(colors, colorRenderer, 'name', selectedColor);
     const colorComboBox = new RxMultiUseComboBox({
         querySelectorString: selector,
         elementClass: 'multi-combo-box-cuie',
@@ -32,9 +32,9 @@ export function createColorBox(selector: string, propertyName: string, colors: I
     return colorComboBox;
 }
 
-export function createDirectionsRadioGroup(selector: string, directions: string[], propertyName: string,
-                                           groupName: string) {
-    const txtArray = new PlainTextArrayWithFilterSingleSelection(directions);
+export function createDirectionsRadioGroup(selector: string, propertyName: string,
+                                           groupName: string, directions: string[], selected: string = null) {
+    const txtArray = new PlainTextArrayWithFilterSingleSelection(directions, selected);
     const positionBox = new RxDirectionsRadioGroup({
         elementClass: 'radio-btn-group-cuie',
         querySelectorString: selector,

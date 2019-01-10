@@ -61,28 +61,58 @@ export class ImageOptionsComponent implements ISubscribe<any> {
     }
 
     private setHTMLElements(properties: IImageOptionsProperties) {
-        const imageUploaderSelector = `${properties.querySelectorString} .img-uploader-1`;
-        const positionBtnGroupSelector = `${properties.querySelectorString} .position-radio-group-image`;
+        this.imageUploader = this.createImageUploader(properties);
+        this.imagePositionBox = this.createPositionBtnGroup(properties);
+        this.imageRotationCenter = this.createRotationBtnGroup(properties);
+        this.imageRotationSlider = this.createRotationSlider(properties);
+        this.imageSizeSlider = this.createSizeSlider(properties);
+        this.imageTransparencySlider = this.createTransparencySlider(properties);
+    }
+
+    private createRotationSlider(properties) {
         const rotationSliderSelector = `${properties.querySelectorString} .rotation-slider-image`;
-        const rotationBtnGroupSelector = `${properties.querySelectorString} .rotation-radio-group-image`;
+        const rot = properties.componentSettings.minMaxRotation;
+        return utils.createSlider(rot.min, rot.max, rot.defaultVal,
+            ImagePropertyNames.IMAGE_ROTATION, rotationSliderSelector);
+    }
+
+    private createSizeSlider(properties) {
         const sizeSliderSelector = `${properties.querySelectorString} .size-slider-image`;
+        const size = properties.componentSettings.minMaxSize;
+        return utils.createSlider(size.min, size.max, size.defaultVal,
+            ImagePropertyNames.IMAGE_SCALE, sizeSliderSelector);
+    }
+
+    private createTransparencySlider(properties) {
         const transparencySliderSelector = `${properties.querySelectorString} .transparency-slider-image`;
-        this.imageUploader = new ImageUploaderComponent({
+        const trans = properties.componentSettings.minMaxTransparency;
+        return utils.createSlider(trans.min, trans.max, trans.defaultVal,
+            ImagePropertyNames.IMAGE_TRANSPARENCY, transparencySliderSelector);
+    }
+
+    private createImageUploader(properties) {
+        const imageUploaderSelector = `${properties.querySelectorString} .img-uploader-1`;
+        return new ImageUploaderComponent({
             querySelectorString: imageUploaderSelector,
             elementClass: 'image-uploader',
         });
-        this.imagePositionBox = utils.createDirectionsRadioGroup(
-            positionBtnGroupSelector, properties.directionsArray, ImagePropertyNames.IMAGE_POSITION,
-            'directrion-group');
-        this.imageRotationCenter = utils.createDirectionsRadioGroup(
-            rotationBtnGroupSelector, properties.rotationsCenterArray,
-            ImagePropertyNames.IMAGE_ROTATION_CENTER,'rotation-group');
-        this.imageRotationSlider = utils.createSlider(0, 100, 50,
-            ImagePropertyNames.IMAGE_ROTATION, rotationSliderSelector);
-        this.imageSizeSlider = utils.createSlider(0, 100, 50,
-            ImagePropertyNames.IMAGE_SCALE, sizeSliderSelector);
-        this.imageTransparencySlider = utils.createSlider(0, 100, 50,
-            ImagePropertyNames.IMAGE_TRANSPARENCY, transparencySliderSelector);
+    }
+
+    private createPositionBtnGroup(properties) {
+        const positionBtnGroupSelector = `${properties.querySelectorString} .position-radio-group-image`;
+        const directions = properties.componentSettings.directions.array;
+        const selectedDirection = properties.componentSettings.directions.selected;
+        return utils.createDirectionsRadioGroup(
+            positionBtnGroupSelector, ImagePropertyNames.IMAGE_POSITION,
+            'directrion-group', directions, selectedDirection);
+    }
+
+    private createRotationBtnGroup(properties) {
+        const rotationBtnGroupSelector = `${properties.querySelectorString} .rotation-radio-group-image`;
+        const rotations = properties.componentSettings.rotations.array;
+        const selectedRotation = properties.componentSettings.rotations.selected;
+        return utils.createDirectionsRadioGroup(rotationBtnGroupSelector,
+            ImagePropertyNames.IMAGE_ROTATION_CENTER, 'rotation-group', rotations, selectedRotation);
     }
 
     private createHTMLElement() {

@@ -1,6 +1,7 @@
 import {IColor, IComponentProperties} from 'crappyuielements';
+import {IMinMaxValue} from '../IMinMaxValue';
 
-export interface  ITextPropertiesProperties extends IComponentProperties {
+export interface ITextPropertiesProperties extends IComponentProperties {
     componentLabel?: string;
     textLabel?: string;
     positionXLabel?: string;
@@ -12,6 +13,21 @@ export interface  ITextPropertiesProperties extends IComponentProperties {
     shadowBlurLabel?: string;
     shadowOffsetXLabel?: string;
     shadowOffsetYLabel?: string;
-    fontColorsArray: IColor[];
-    shadowColorsArray: IColor[];
+    componentSettings: {
+        textColor: {
+            colors: IColor[],
+            selected?: IColor,
+        }
+        shadowColor: {
+            colors: IColor[],
+            selected?: IColor,
+        }
+        minMaxPositionX: IMinMaxValue,
+        minMaxPositionY: IMinMaxValue,
+        minMaxRotation: IMinMaxValue,
+        minMaxShadowBlur: IMinMaxValue,
+        minMaxShadowOffsetX: IMinMaxValue,
+        minMaxShadowOffsetY: IMinMaxValue,
+        minMaxFontSize: IMinMaxValue,
+    };
 }

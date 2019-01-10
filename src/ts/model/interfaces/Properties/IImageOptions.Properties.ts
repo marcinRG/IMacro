@@ -1,4 +1,5 @@
 import {IComponentProperties} from 'crappyuielements';
+import {IMinMaxValue} from '../IMinMaxValue';
 
 export interface IImageOptionsProperties extends IComponentProperties {
     componentLabel?: string;
@@ -7,6 +8,17 @@ export interface IImageOptionsProperties extends IComponentProperties {
     rotationCenterLabel?: string;
     sizeLabel?: string;
     transparencyLabel?: string;
-    directionsArray: string[];
-    rotationsCenterArray: string[];
+    componentSettings: {
+        directions: {
+            array: string[],
+            selected?: string,
+        },
+        rotations: {
+            array: string[],
+            selected?: string,
+        }
+        minMaxTransparency: IMinMaxValue,
+        minMaxSize: IMinMaxValue,
+        minMaxRotation: IMinMaxValue,
+    };
 }

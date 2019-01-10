@@ -51,14 +51,18 @@ export class CanvasOptionsComponent implements ISubscribe<any> {
 
     private setHTMLElements(properties: ICanvasOptionsProperties) {
         const colorBoxSelector = `${properties.querySelectorString} .color-controller-canvas`;
+        const colors = properties.componentSettings.colorSettings.colors;
+        const selected = properties.componentSettings.colorSettings.selected;
         this.colorBox = utils.createColorBox(colorBoxSelector,
-            CanvasPropertyNames.CANVAS_COLOR, properties.colors);
+            CanvasPropertyNames.CANVAS_COLOR, colors, selected);
         const widthSelector = `${properties.querySelectorString} .width-controller-canvas`;
-        this.widthSlider = utils.createSlider(0, 100, 50,
+        const hSet = properties.componentSettings.minMaxWidth;
+        this.widthSlider = utils.createSlider(hSet.min, hSet.max, hSet.defaultVal,
             CanvasPropertyNames.CANVAS_WIDTH, widthSelector);
         const heightSelector = `${properties.querySelectorString} .height-controller-canvas`;
-        this.heightSlider = utils.createSlider(0, 100, 50,
-            CanvasPropertyNames.CANVAS_HEIGHT, heightSelector);
+        const wSet = properties.componentSettings.minMaxWidth;
+        this.heightSlider = utils.createSlider(wSet.min, wSet.max, wSet.defaultVal,
+        CanvasPropertyNames.CANVAS_HEIGHT, heightSelector);
     }
 
     private createHTMLElement() {

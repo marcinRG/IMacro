@@ -4,7 +4,6 @@ import {ISubscribe} from 'crappyuielements';
 import {Observer} from 'rxjs/Observer';
 import 'rxjs/add/operator/mergeMap';
 import {IImageUploaderProperties} from '../model/interfaces/Properties/IImageUploader.Properties';
-import {IEvent} from '../model/interfaces/IEvent';
 import {ImagePropertyNames} from '../model/enums/ImagePropertyNames';
 
 export class ImageUploaderComponent implements ISubscribe<any> {
