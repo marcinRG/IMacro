@@ -28,4 +28,5 @@ window.addEventListener('load', () => {
     canvasOptions.subscribe(display);
     imageOptions.subscribe(display);
     textProperties.subscribe(display);
+    display.init(settings);
 });

@@ -1,6 +1,7 @@
 import {ITextProperties} from '../model/interfaces/ITextProperties';
 import {IGlobalCanvasSettings} from '../model/interfaces/IGlobalCanvasSettings';
 import {IComponentProperties} from 'crappyuielements';
+import {ICanvasProperties} from '../model/interfaces/ICanvasProperties';
 
 export class DisplayCanvas {
     private htmlCanvasElement;
@@ -31,6 +32,23 @@ export class DisplayCanvas {
             }
             this.restoreShadowAndAlphaSettings();
         }
+    }
+
+    public paintBackground(canvasOptions: ICanvasProperties) {
+        const height = this.calculateSize(canvasOptions.height, canvasOptions.maxBounds.maxHeight);
+        const width = this.calculateSize(canvasOptions.width, canvasOptions.maxBounds.maxWidth);
+        this.htmlCanvasElement.height = height + '';
+        this.htmlCanvasElement.width = width + '';
+        if (this.context2d) {
+            this.saveShadowAndAlphaSettings();
+            this.context2d.fillStyle = canvasOptions.color;
+            this.context2d.fillRect(0, 0, width, height);
+            this.restoreShadowAndAlphaSettings();
+        }
+    }
+
+    private calculateSize(value: number, max: number) {
+        return Math.floor((max * value) / 100);
     }
 
     private setElements(properties: IComponentProperties) {

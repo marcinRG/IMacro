@@ -6,14 +6,16 @@ import {CanvasPropertyNames} from '../model/enums/CanvasPropertyNames';
 import {IColor} from 'crappyuielements';
 import {ImagePropertyNames} from '../model/enums/ImagePropertyNames';
 import {TextPropertyNames} from '../model/enums/TextPropertyNames';
+import * as utils from '../utils/Utils';
+import {ICanvasProperties} from '../model/interfaces/ICanvasProperties';
 
 export class DisplayComponent implements Observer<IEvent> {
     private htmlElement;
-    private canvasComponent;
+    private canvasComponent: DisplayCanvas;
     private canvasClass: string;
     private canvasHeight: string;
     private canvasWidth: string;
-    private canvasProperties: any = {};
+    private canvasProperties: ICanvasProperties = <ICanvasProperties> {};
     private imageProperties: any = {};
     private textProperties: any = {};
 
@@ -24,6 +26,12 @@ export class DisplayComponent implements Observer<IEvent> {
             this.htmlElement.innerHTML = this.createHTMLElement();
             this.setHTMLElements(properties);
         }
+    }
+
+    public init(settings) {
+        console.log('init');
+        this.initCanvasProperties(settings);
+        this.canvasComponent.paintBackground(this.canvasProperties);
     }
 
     public next(value: IEvent) {
@@ -41,8 +49,15 @@ export class DisplayComponent implements Observer<IEvent> {
         console.log('completed');
     }
 
+    private initCanvasProperties(settings) {
+        this.canvasProperties.maxBounds = utils.getMaxCanvasSize();
+        this.canvasProperties.width = settings.canvas.minMaxWidth.defaultVal;
+        this.canvasProperties.height = settings.canvas.minMaxHeight.defaultVal;
+        this.canvasProperties.color = settings.canvas.colorSettings.selected.value;
+    }
+
     private redrawCanvas() {
-        console.log(this.canvasProperties);
+        this.canvasComponent.paintBackground(this.canvasProperties);
         console.log(this.imageProperties);
         console.log(this.textProperties);
     }
