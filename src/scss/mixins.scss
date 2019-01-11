@@ -35,12 +35,14 @@
 @mixin spinner-button {
   @include set-to-zero;
   box-sizing: border-box;
+  display: block;
   outline: 0;
   height: 50%;
   width: 100%;
   font-size: .5em;
   cursor: pointer;
-  color: black;
+  color: $app-text-color;
+  background-color: $app-button-color;
 }
 
 @mixin input-text {

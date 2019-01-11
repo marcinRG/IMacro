@@ -25,7 +25,7 @@ export class RxMultiUseComboBox extends MultiUseComboBox implements ISubscribe<a
         this.selectableList.selected = this.selectableList.values[index];
         this.subject.next({
             name: this.propertyName,
-            value: this.selectableList.selected
+            value: this.selectableList.selected,
         });
     }
 

@@ -52,6 +52,35 @@
     @include section-title;
   }
 
+  .checkbox-div {
+    @include set-to-zero;
+    height: 1.5em;
+    width: 100%;
+    border: 1px solid transparent;
+  }
+
+  .input-checkbox-text {
+    @include set-to-zero;
+  }
+
+  .checkbox-label {
+    @include set-to-zero;
+    color: $app-text-color;
+    font-size: .65em;
+    display: inline-block;
+    height: 1em;
+    vertical-align: middle;
+  }
+
+
+  .checkbox-span {
+    @include set-to-zero;
+    display: inline-block;
+    font-size: .65em;
+    height: 1em;
+    vertical-align: middle;
+  }
+
   label {
     @include label;
   }

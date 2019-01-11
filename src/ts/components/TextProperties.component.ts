@@ -3,13 +3,20 @@ import * as utils from './../utils/Utils';
 import {RxMultiUseComboBox} from '../rxUiElements/RxMultiUseComboBox';
 import {ITextPropertiesProperties} from '../model/interfaces/Properties/ITextProperties.properties';
 import {ISubscribe} from 'crappyuielements';
-import {Observable, Observer, Subject} from 'rxjs';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
+import {Observer} from 'rxjs/Observer';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/debounceTime';
 import {TextPropertyNames} from '../model/enums/TextPropertyNames';
+import {RxSpinner} from '../rxUiElements/RxSpinner';
 
 export class TextPropertiesComponent implements ISubscribe<any> {
     private componentLabel: string;
     private positionXLabel: string;
     private textLabel: string;
+    private fontSizeLabel: string;
+    private fontFamilyLabel: string;
     private positionYLabel: string;
     private fontColorLabel: string;
     private rotationLabel: string;
@@ -18,10 +25,13 @@ export class TextPropertiesComponent implements ISubscribe<any> {
     private shadowBlurLabel: string;
     private shadowOffsetXLabel: string;
     private shadowOffsetYLabel: string;
+    private shadowCheckboxLabel: string;
     private htmlElement;
     private positionXSlider: RxSlider;
     private positionYSlider: RxSlider;
     private fontColorBox: RxMultiUseComboBox;
+    private fontFamilyCBox: RxMultiUseComboBox;
+    private fontSizeSpinner: RxSpinner;
     private rotationSlider: RxSlider;
     private shadowColorBox: RxMultiUseComboBox;
     private shadowBlurSlider: RxSlider;
@@ -37,6 +47,7 @@ export class TextPropertiesComponent implements ISubscribe<any> {
             this.htmlElement.classList.add(properties.elementClass);
             this.setHTMLElements(properties);
             this.subscribeToUIComponents();
+            this.addTextInputListener(properties);
         }
     }
 
@@ -57,11 +68,15 @@ export class TextPropertiesComponent implements ISubscribe<any> {
         this.shadowBlurSlider.subscribe(this.subject);
         this.shadowOffsetXSlider.subscribe(this.subject);
         this.shadowOffsetYSlider.subscribe(this.subject);
+        this.fontSizeSpinner.subscribe(this.subject);
+        this.fontFamilyCBox.subscribe(this.subject);
     }
 
     private setProperties(properties: ITextPropertiesProperties) {
         this.componentLabel = properties.componentLabel || 'Text properties';
         this.textLabel = properties.textLabel || 'Text';
+        this.fontSizeLabel = properties.fontSizeLabel || 'font size';
+        this.fontFamilyLabel = properties.fontFamilyLabel || 'font family';
         this.positionXLabel = properties.positionXLabel || 'position x';
         this.positionYLabel = properties.positionYLabel || 'position y';
         this.fontColorLabel = properties.fontColorLabel || 'font color';
@@ -71,6 +86,38 @@ export class TextPropertiesComponent implements ISubscribe<any> {
         this.shadowBlurLabel = properties.shadowBlurLabel || 'shadow blur';
         this.shadowOffsetXLabel = properties.shadowOffsetXLabel || 'offset x';
         this.shadowOffsetYLabel = properties.shadowOffsetYLabel || 'offset y';
+        this.shadowCheckboxLabel = properties.shadowCheckboxLabel || 'add shadow';
+    }
+
+    private addTextInputListener(properties) {
+        const txtInputSelector = `${properties.querySelectorString} .txt-field`;
+        const elem = document.querySelector(txtInputSelector);
+        const observable = Observable.fromEvent(elem, 'input').map((value) => {
+            return {
+                name: TextPropertyNames.TEXT,
+                value,
+            };
+        }).debounceTime(500);
+        observable.subscribe(this.subject);
+    }
+
+    private addShadowCheckboxListener(properties) {
+        const checkboxSelector = `${properties.querySelectorString} .input-checkbox-text`;
+        const elem = document.querySelector(checkboxSelector);
+    }
+
+    private createFontFamilyComboBox(properties) {
+        const fontFamilyCBoxSelector = `${properties.querySelectorString} .font-family-cbox-text`;
+        const fontSett = properties.componentSettings.fontFamily;
+        return utils.createFontBox(fontFamilyCBoxSelector, TextPropertyNames.TEXT_FONT_FAMILY,
+            fontSett.fonts, fontSett.selected);
+    }
+
+    private createFontSizeSpinner(properties) {
+        const fontSizeSelector = `${properties.querySelectorString} .font-size-spinner-text`;
+        const sizeSett = properties.componentSettings.fontSize;
+        return utils.createSpinner(sizeSett.min, sizeSett.max, sizeSett.value, sizeSett.delta,
+            TextPropertyNames.TEXT_SIZE, fontSizeSelector);
     }
 
     private createPositionXSlider(properties) {
@@ -138,6 +185,8 @@ export class TextPropertiesComponent implements ISubscribe<any> {
         this.shadowOffsetYSlider = this.createOffsetYSlider(properties);
         this.fontColorBox = this.createFontColorCBox(properties);
         this.shadowColorBox = this.createShadowColorCBox(properties);
+        this.fontFamilyCBox = this.createFontFamilyComboBox(properties);
+        this.fontSizeSpinner = this.createFontSizeSpinner(properties);
     }
 
     private createHTMLElement() {
@@ -145,6 +194,10 @@ export class TextPropertiesComponent implements ISubscribe<any> {
             <h2>${this.componentLabel}</h2>
             <label>${this.textLabel}</label>
             <input type="text" class="txt-field">
+            <label>${this.fontSizeLabel}</label>
+            <div class="font-size-spinner-text"></div>
+            <label>${this.fontFamilyLabel}</label>
+            <div class="font-family-cbox-text"></div>
             <label>${this.positionXLabel}</label>
             <div class="positionx-slider-text"></div>
             <label>${this.positionYLabel}</label>
@@ -154,6 +207,12 @@ export class TextPropertiesComponent implements ISubscribe<any> {
             <label>${this.rotationLabel}</label>
             <div class="rotation-slider-text"></div>
             <label>${this.shadowLabel}</label>
+            <div class="checkbox-div">
+              <span class="checkbox-span">
+               <input type="checkbox" class="input-checkbox-text">
+              </span>
+              <span class="checkbox-label">${this.shadowCheckboxLabel}</span>
+            </div>
             <label>${this.shadowColorLabel}</label>
             <div class="shadow-color-combo-box-text"></div>
             <label>${this.shadowBlurLabel}</label>

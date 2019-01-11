@@ -58,8 +58,8 @@ export class DisplayComponent implements Observer<IEvent> {
 
     private redrawCanvas() {
         this.canvasComponent.paintBackground(this.canvasProperties);
-        console.log(this.imageProperties);
-        console.log(this.textProperties);
+        this.canvasComponent.paintImage();
+        this.canvasComponent.writeText();
     }
 
     private handleCanvasEvents(event: IEvent) {

@@ -1,4 +1,4 @@
-import {IColor} from 'crappyuielements';
+import {IColor, IFont} from 'crappyuielements';
 import {IMinMaxValue} from '../model/interfaces/IMinMaxValue';
 
 const colors: IColor[] = [
@@ -34,6 +34,60 @@ const colors: IColor[] = [
     },
 
 ];
+const fontsList: IFont[] = [
+    {
+        id: '1',
+        name: 'Arial',
+        value: 'Arial, sans-serif',
+    },
+    {
+        id: '2',
+        name: 'Georgia',
+        value: 'Georgia,serif',
+    },
+    {
+        id: '3',
+        name: 'Papyrus',
+        value: 'Papyrus, fantasy',
+    },
+    {
+        id: '4',
+        name: 'Cambria',
+        value: 'Cambria,serif',
+    },
+    {
+        id: '5',
+        name: 'Titan One',
+        value: '\'Titan One\', cursive',
+    },
+    {
+        id: '6',
+        name: 'Lobster',
+        value: '\'Lobster\', cursive',
+    },
+    {
+        id: '7',
+        name: 'Shrikhand',
+        value: '\'Shrikhand\', cursive',
+    },
+    {
+        id: '8',
+        name: 'Bangers',
+        value: '\'Bangers\', cursive',
+    },
+    {
+        id: '9',
+        name: 'Parisienne',
+        value: '\'Parisienne\', cursive',
+    },
+    {
+        id: '10',
+        name: 'Playball',
+        value: '\'Playball\', cursive',
+    },
+
+];
+
 const directionsArray: string[] = [
     'top-left',
     'top-center',
@@ -66,14 +120,14 @@ const CanvasOptionsSettings: any = {
 const ImageOptionsSettings: any = {
     directions: {
         array: directionsArray,
-        selected: directionsArray[4]
+        selected: directionsArray[4],
     },
     rotations: {
         array: rotationsCenterArray,
-        selected: rotationsCenterArray[2]
+        selected: rotationsCenterArray[2],
     },
     minMaxRotation: defaultMinMaxValue,
-    minMaxSize: defaultMinMaxValue,
+    minMaxSize: {min: 10, max: 400, defaultVal: 100},
     minMaxTransparency: defaultMinMaxValue,
 };
 const TextOptionsSettings: any = {
@@ -84,6 +138,16 @@ const TextOptionsSettings: any = {
     shadowColor: {
         colors,
         selected: colors[4],
+    },
+    fontFamily: {
+        fonts: fontsList,
+        selected: fontsList[4],
+    },
+    fontSize: {
+        min: 6,
+        max: 48,
+        value: 12,
+        delta: 2,
     },
     minMaxPositionX: defaultMinMaxValue,
     minMaxPositionY: defaultMinMaxValue,

@@ -331,6 +331,72 @@ body {
 
 /* @import '../variables'; */
 /* @import '../mixins'; */
+.spinner-cuie {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: block;
+  overflow: hidden;
+  border: #292929 solid 1px;
+  height: 1.55em; }
+  .spinner-cuie::after {
+    clear: both; }
+  .spinner-cuie .input-txt {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+    background-color: #555;
+    color: #bbb;
+    outline: 0;
+    float: left;
+    font-size: .75em;
+    height: 100%;
+    padding: .15em;
+    width: 85%; }
+    .spinner-cuie .input-txt:focus {
+      background-color: #2b2b2b; }
+  .spinner-cuie .button-wrapper {
+    width: 15%;
+    float: right;
+    overflow: hidden; }
+  .spinner-cuie .button-up {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+    outline: 0;
+    height: 50%;
+    width: 100%;
+    font-size: .5em;
+    cursor: pointer;
+    color: #bbb;
+    background-color: #333;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); }
+    .spinner-cuie .button-up::before {
+      display: inline-block;
+      content: '\025B2'; }
+  .spinner-cuie .button-down {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: block;
+    outline: 0;
+    height: 50%;
+    width: 100%;
+    font-size: .5em;
+    cursor: pointer;
+    color: #bbb;
+    background-color: #333; }
+    .spinner-cuie .button-down::before {
+      content: '\025BC'; }
+
+/* @import '../variables'; */
+/* @import '../mixins'; */
 .image-uploader {
   border: 0;
   margin: 0;
@@ -541,6 +607,34 @@ body {
     color: #bbb;
     font-size: .8em;
     font-weight: normal; }
+  .text-tools .checkbox-div {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    height: 1.5em;
+    width: 100%;
+    border: 1px solid transparent; }
+  .text-tools .input-checkbox-text {
+    border: 0;
+    margin: 0;
+    padding: 0; }
+  .text-tools .checkbox-label {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    color: #bbb;
+    font-size: .65em;
+    display: inline-block;
+    height: 1em;
+    vertical-align: middle; }
+  .text-tools .checkbox-span {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: .65em;
+    height: 1em;
+    vertical-align: middle; }
   .text-tools label {
     border: 0;
     margin: 0;

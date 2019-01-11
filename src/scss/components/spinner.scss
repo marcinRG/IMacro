@@ -2,19 +2,18 @@
 @import '../mixins';
 
 .spinner-cuie {
-
   @include block-border-box;
   @include input-fields;
-  @include clear-both-overflow-hidden;
 
   .input-txt {
     @include input-text;
-    width: 90%;
+    width: 85%;
   }
 
   .button-wrapper {
-    width: 10%;
+    width: 15%;
     float: right;
+    overflow: hidden;
   }
 
   .button-up {
@@ -34,5 +33,4 @@
       content: '\025BC';
     }
   }
-
 }

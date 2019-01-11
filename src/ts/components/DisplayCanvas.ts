@@ -12,26 +12,27 @@ export class DisplayCanvas {
         this.setElements(properties);
     }
 
-    public writeText(text: ITextProperties) {
-        if (this.context2d) {
-            this.saveShadowAndAlphaSettings();
-            this.context2d.fillStyle = text.fillStyle;
-            this.context2d.globalAlpha = text.alpha;
-            this.context2d.font = `${text.fontStyle} ${text.fontWeight} ${text.fontSize} ${text.fontFamily}`;
-            if ((text.shadowColor) && (text.shadowColor !== '')) {
-                this.context2d.shadowColor = text.shadowColor;
-                this.context2d.shadowBlur = text.shadowBlur;
-                this.context2d.shadowOffsetX = text.shadowOffsetX;
-                this.context2d.shadowOffsetY = text.shadowOffsetY;
-            }
-            if (text.fill) {
-                this.context2d.fillText(text.text, text.x, text.y);
-            } else {
-                this.context2d.lineWidth = text.lineWidth;
-                this.context2d.strokeText(text.text, text.x, text.y);
-            }
-            this.restoreShadowAndAlphaSettings();
-        }
+    public writeText() {
+        console.log('write text');
+        // if (this.context2d) {
+        //     this.saveShadowAndAlphaSettings();
+        //     this.context2d.fillStyle = text.fillStyle;
+        //     this.context2d.globalAlpha = text.alpha;
+        //     this.context2d.font = `${text.fontStyle} ${text.fontWeight} ${text.fontSize} ${text.fontFamily}`;
+        //     if ((text.shadowColor) && (text.shadowColor !== '')) {
+        //         this.context2d.shadowColor = text.shadowColor;
+        //         this.context2d.shadowBlur = text.shadowBlur;
+        //         this.context2d.shadowOffsetX = text.shadowOffsetX;
+        //         this.context2d.shadowOffsetY = text.shadowOffsetY;
+        //     }
+        //     if (text.fill) {
+        //         this.context2d.fillText(text.text, text.x, text.y);
+        //     } else {
+        //         this.context2d.lineWidth = text.lineWidth;
+        //         this.context2d.strokeText(text.text, text.x, text.y);
+        //     }
+        //     this.restoreShadowAndAlphaSettings();
+        // }
     }
 
     public paintBackground(canvasOptions: ICanvasProperties) {
@@ -45,6 +46,10 @@ export class DisplayCanvas {
             this.context2d.fillRect(0, 0, width, height);
             this.restoreShadowAndAlphaSettings();
         }
+    }
+
+    public paintImage() {
+        console.log('paint image');
     }
 
     private calculateSize(value: number, max: number) {
