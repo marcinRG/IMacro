@@ -126,9 +126,9 @@ const ImageOptionsSettings: any = {
         array: rotationsCenterArray,
         selected: rotationsCenterArray[2],
     },
-    minMaxRotation: defaultMinMaxValue,
+    minMaxRotation: {min: -180, max: 180, defaultVal: 0},
     minMaxSize: {min: 10, max: 400, defaultVal: 100},
-    minMaxTransparency: defaultMinMaxValue,
+    minMaxTransparency: {min: 0, max: 100, defaultVal: 0},
 };
 const TextOptionsSettings: any = {
     textColor: {
@@ -149,13 +149,12 @@ const TextOptionsSettings: any = {
         value: 12,
         delta: 2,
     },
-    minMaxPositionX: defaultMinMaxValue,
-    minMaxPositionY: defaultMinMaxValue,
-    minMaxRotation: defaultMinMaxValue,
-    minMaxShadowBlur: defaultMinMaxValue,
-    minMaxShadowOffsetX: defaultMinMaxValue,
-    minMaxShadowOffsetY: defaultMinMaxValue,
-    minMaxFontSize: defaultMinMaxValue,
+    minMaxPositionX: {min: 5, max: 95, defaultVal: 10},
+    minMaxPositionY: {min: 5, max: 95, defaultVal: 10},
+    minMaxRotation: {min: -180, max: 180, defaultVal: 0},
+    minMaxShadowBlur: {min: 0, max: 100, defaultVal: 0},
+    minMaxShadowOffsetX: {min: -20, max: 20, defaultVal: 2},
+    minMaxShadowOffsetY: {min: -20, max: 20, defaultVal: 2},
 };
 export const settings: any = {
     canvas: CanvasOptionsSettings,

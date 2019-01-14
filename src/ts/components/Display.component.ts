@@ -8,6 +8,7 @@ import {ImagePropertyNames} from '../model/enums/ImagePropertyNames';
 import {TextPropertyNames} from '../model/enums/TextPropertyNames';
 import * as utils from '../utils/Utils';
 import {ICanvasProperties} from '../model/interfaces/ICanvasProperties';
+import {ITextProperties} from '../model/interfaces/ITextProperties';
 
 export class DisplayComponent implements Observer<IEvent> {
     private htmlElement;
@@ -17,7 +18,7 @@ export class DisplayComponent implements Observer<IEvent> {
     private canvasWidth: string;
     private canvasProperties: ICanvasProperties = <ICanvasProperties> {};
     private imageProperties: any = {};
-    private textProperties: any = {};
+    private textProperties: ITextProperties = <ITextProperties> {};
 
     constructor(properties: IDisplayComponentProperties) {
         this.htmlElement = document.querySelector(properties.querySelectorString);
@@ -29,7 +30,6 @@ export class DisplayComponent implements Observer<IEvent> {
     }
 
     public init(settings) {
-        console.log('init');
         this.initCanvasProperties(settings);
         this.canvasComponent.paintBackground(this.canvasProperties);
     }
@@ -59,7 +59,7 @@ export class DisplayComponent implements Observer<IEvent> {
     private redrawCanvas() {
         this.canvasComponent.paintBackground(this.canvasProperties);
         this.canvasComponent.paintImage();
-        this.canvasComponent.writeText();
+        this.canvasComponent.writeText(this.textProperties);
     }
 
     private handleCanvasEvents(event: IEvent) {
@@ -145,13 +145,27 @@ export class DisplayComponent implements Observer<IEvent> {
                 this.textProperties.positionY = event.value;
                 break;
             }
+            case TextPropertyNames.TEXT_SHADOW_ENBLED: {
+                this.textProperties.shadowEnabled = event.value;
+                break;
+            }
+            case TextPropertyNames.TEXT_FONT_FAMILY: {
+                this.textProperties.fontFamily = event.value.value;
+                break;
+            }
+            case TextPropertyNames.TEXT: {
+                this.textProperties.text = event.value;
+                break;
+            }
+            case TextPropertyNames.TEXT_SIZE: {
+                this.textProperties.fontSize = event.value;
+                break;
+            }
         }
     }
 
     private setProperties(properties: IDisplayComponentProperties) {
         this.canvasClass = properties.canvasClass || 'canvas-output';
-        this.canvasHeight = 600 + '';
-        this.canvasWidth = 600 + '';
     }
 
     private setHTMLElements(properties: IDisplayComponentProperties) {

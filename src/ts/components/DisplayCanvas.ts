@@ -12,10 +12,22 @@ export class DisplayCanvas {
         this.setElements(properties);
     }
 
-    public writeText() {
-        console.log('write text');
-        // if (this.context2d) {
-        //     this.saveShadowAndAlphaSettings();
+    public writeText(text: ITextProperties) {
+        console.log(text);
+        if (this.context2d) {
+            if ((text.text) && (text.text !== '')) {
+                console.log('rys gotow');
+                this.saveShadowAndAlphaSettings();
+                this.context2d.fillStyle = text.color;
+                this.context2d.font = `normal normal ${text.fontSize}px ${text.fontFamily}`;
+                const canvasBounds = this.getWidthHeight();
+                this.context2d.fillText(text.text,
+                    this.calculateSize(text.positionX, canvasBounds.width),
+                    this.calculateSize(text.positionY, canvasBounds.height));
+                this.restoreShadowAndAlphaSettings();
+            }
+        }
+        //
         //     this.context2d.fillStyle = text.fillStyle;
         //     this.context2d.globalAlpha = text.alpha;
         //     this.context2d.font = `${text.fontStyle} ${text.fontWeight} ${text.fontSize} ${text.fontFamily}`;
@@ -31,7 +43,7 @@ export class DisplayCanvas {
         //         this.context2d.lineWidth = text.lineWidth;
         //         this.context2d.strokeText(text.text, text.x, text.y);
         //     }
-        //     this.restoreShadowAndAlphaSettings();
+        //
         // }
     }
 
@@ -50,6 +62,14 @@ export class DisplayCanvas {
 
     public paintImage() {
         console.log('paint image');
+    }
+
+    private getWidthHeight() {
+        const rect = this.htmlCanvasElement.getBoundingClientRect();
+        return {
+            width: rect.width,
+            height: rect.height,
+        };
     }
 
     private calculateSize(value: number, max: number) {

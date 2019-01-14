@@ -1,5 +1,4 @@
-import {IComponentProperties} from
-        'crappyuielements/CrappyUIElements/Interfaces/Component.Properties/IComponent.Properties';
+import {IComponentProperties} from 'crappyuielements';
 
 export interface IImageUploaderProperties extends IComponentProperties {
     labelForm?: string;

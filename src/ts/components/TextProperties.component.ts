@@ -48,6 +48,7 @@ export class TextPropertiesComponent implements ISubscribe<any> {
             this.setHTMLElements(properties);
             this.subscribeToUIComponents();
             this.addTextInputListener(properties);
+            this.addShadowCheckboxListener(properties);
         }
     }
 
@@ -92,10 +93,11 @@ export class TextPropertiesComponent implements ISubscribe<any> {
     private addTextInputListener(properties) {
         const txtInputSelector = `${properties.querySelectorString} .txt-field`;
         const elem = document.querySelector(txtInputSelector);
-        const observable = Observable.fromEvent(elem, 'input').map((value) => {
+        const observable = Observable.fromEvent(elem, 'input').map((value: Event) => {
+            const inputTxt = <HTMLInputElement> value.srcElement;
             return {
                 name: TextPropertyNames.TEXT,
-                value,
+                value: inputTxt.value,
             };
         }).debounceTime(500);
         observable.subscribe(this.subject);
@@ -104,6 +106,14 @@ export class TextPropertiesComponent implements ISubscribe<any> {
     private addShadowCheckboxListener(properties) {
         const checkboxSelector = `${properties.querySelectorString} .input-checkbox-text`;
         const elem = document.querySelector(checkboxSelector);
+        const observable = Observable.fromEvent(elem, 'click').map((value: Event) => {
+            const checkbox = <HTMLInputElement> value.srcElement;
+            return {
+                name: TextPropertyNames.TEXT_SHADOW_ENBLED,
+                value: checkbox.checked,
+            };
+        });
+        observable.subscribe(this.subject);
     }
 
     private createFontFamilyComboBox(properties) {
