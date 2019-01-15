@@ -2,6 +2,7 @@ import {ITextProperties} from '../model/interfaces/ITextProperties';
 import {IGlobalCanvasSettings} from '../model/interfaces/IGlobalCanvasSettings';
 import {IComponentProperties} from 'crappyuielements';
 import {ICanvasProperties} from '../model/interfaces/ICanvasProperties';
+import {IImageProperties} from '../model/interfaces/Properties/IImageProperties';
 
 export class DisplayCanvas {
     private htmlCanvasElement;
@@ -13,38 +14,13 @@ export class DisplayCanvas {
     }
 
     public writeText(text: ITextProperties) {
-        console.log(text);
         if (this.context2d) {
+            this.saveShadowAndAlphaSettings();
             if ((text.text) && (text.text !== '')) {
-                console.log('rys gotow');
-                this.saveShadowAndAlphaSettings();
-                this.context2d.fillStyle = text.color;
-                this.context2d.font = `normal normal ${text.fontSize}px ${text.fontFamily}`;
-                const canvasBounds = this.getWidthHeight();
-                this.context2d.fillText(text.text,
-                    this.calculateSize(text.positionX, canvasBounds.width),
-                    this.calculateSize(text.positionY, canvasBounds.height));
-                this.restoreShadowAndAlphaSettings();
+                this.addText(text);
             }
+            this.restoreShadowAndAlphaSettings();
         }
-        //
-        //     this.context2d.fillStyle = text.fillStyle;
-        //     this.context2d.globalAlpha = text.alpha;
-        //     this.context2d.font = `${text.fontStyle} ${text.fontWeight} ${text.fontSize} ${text.fontFamily}`;
-        //     if ((text.shadowColor) && (text.shadowColor !== '')) {
-        //         this.context2d.shadowColor = text.shadowColor;
-        //         this.context2d.shadowBlur = text.shadowBlur;
-        //         this.context2d.shadowOffsetX = text.shadowOffsetX;
-        //         this.context2d.shadowOffsetY = text.shadowOffsetY;
-        //     }
-        //     if (text.fill) {
-        //         this.context2d.fillText(text.text, text.x, text.y);
-        //     } else {
-        //         this.context2d.lineWidth = text.lineWidth;
-        //         this.context2d.strokeText(text.text, text.x, text.y);
-        //     }
-        //
-        // }
     }
 
     public paintBackground(canvasOptions: ICanvasProperties) {
@@ -60,8 +36,33 @@ export class DisplayCanvas {
         }
     }
 
-    public paintImage() {
-        console.log('paint image');
+    public paintImage(image: IImageProperties) {
+        if (this.context2d) {
+            this.saveShadowAndAlphaSettings();
+            if (image.image) {
+                this.context2d.drawImage(image.image, 0, 0);
+            }
+            this.restoreShadowAndAlphaSettings();
+        }
+    }
+
+    private addText(text: ITextProperties) {
+        this.addShadow(text);
+        this.context2d.fillStyle = text.color;
+        this.context2d.font = `normal normal ${text.fontSize}px ${text.fontFamily}`;
+        const canvasBounds = this.getWidthHeight();
+        this.context2d.fillText(text.text,
+            this.calculateSize(text.positionX, canvasBounds.width),
+            this.calculateSize(text.positionY, canvasBounds.height));
+    }
+
+    private addShadow(text: ITextProperties) {
+        if (text.shadowEnabled) {
+            this.context2d.shadowColor = text.shadowColor;
+            this.context2d.shadowBlur = text.shadowBlur;
+            this.context2d.shadowOffsetX = text.shadowOffsetX;
+            this.context2d.shadowOffsetY = text.shadowOffsetY;
+        }
     }
 
     private getWidthHeight() {
@@ -88,7 +89,7 @@ export class DisplayCanvas {
         this.shadowsAndAlphaSettings = {
             shadowColor: this.context2d.shadowColor,
             shadowBlur: this.context2d.shadowBlur,
-            shadowOffsetX: this.context2d.shadowCffsetX,
+            shadowOffsetX: this.context2d.shadowOffsetX,
             shadowOffsetY: this.context2d.shadowOffsetY,
             globalAlpha: this.context2d.globalAlpha,
         };
@@ -102,3 +103,11 @@ export class DisplayCanvas {
         this.context2d.globalAlpha = this.shadowsAndAlphaSettings.globalAlpha;
     }
 }
+
+//     if (text.fill) {
+//         this.context2d.fillText(text.text, text.x, text.y);
+//     } else {
+//         this.context2d.lineWidth = text.lineWidth;
+//         this.context2d.strokeText(text.text, text.x, text.y);
+//     }
+// }

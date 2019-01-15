@@ -9,6 +9,8 @@ import {TextPropertyNames} from '../model/enums/TextPropertyNames';
 import * as utils from '../utils/Utils';
 import {ICanvasProperties} from '../model/interfaces/ICanvasProperties';
 import {ITextProperties} from '../model/interfaces/ITextProperties';
+import {IIMageFile} from '../model/interfaces/IImageFile';
+import {IImageProperties} from '../model/interfaces/Properties/IImageProperties';
 
 export class DisplayComponent implements Observer<IEvent> {
     private htmlElement;
@@ -17,7 +19,7 @@ export class DisplayComponent implements Observer<IEvent> {
     private canvasHeight: string;
     private canvasWidth: string;
     private canvasProperties: ICanvasProperties = <ICanvasProperties> {};
-    private imageProperties: any = {};
+    private imageProperties: IImageProperties = <IImageProperties> {};
     private textProperties: ITextProperties = <ITextProperties> {};
 
     constructor(properties: IDisplayComponentProperties) {
@@ -31,7 +33,8 @@ export class DisplayComponent implements Observer<IEvent> {
 
     public init(settings) {
         this.initCanvasProperties(settings);
-        this.canvasComponent.paintBackground(this.canvasProperties);
+        this.initTextProperties(settings);
+        this.redrawCanvas();
     }
 
     public next(value: IEvent) {
@@ -56,9 +59,23 @@ export class DisplayComponent implements Observer<IEvent> {
         this.canvasProperties.color = settings.canvas.colorSettings.selected.value;
     }
 
+    private initTextProperties(settings) {
+        this.textProperties.shadowBlur = settings.text.minMaxShadowBlur.defaultVal;
+        this.textProperties.shadowOffsetY = settings.text.minMaxShadowOffsetY.defaultVal;
+        this.textProperties.shadowOffsetX = settings.text.minMaxShadowOffsetX.defaultVal;
+        this.textProperties.fontSize = settings.text.fontSize.value;
+        this.textProperties.fontFamily = settings.text.fontFamily.selected.value;
+        this.textProperties.color = settings.text.textColor.selected.value;
+        this.textProperties.shadowColor = settings.text.shadowColor.selected.value;
+        this.textProperties.positionX = settings.text.minMaxPositionX.defaultVal;
+        this.textProperties.positionY = settings.text.minMaxPositionY.defaultVal;
+        this.textProperties.rotation = settings.text.minMaxRotation.defaultVal;
+        this.textProperties.shadowEnabled = false;
+    }
+
     private redrawCanvas() {
         this.canvasComponent.paintBackground(this.canvasProperties);
-        this.canvasComponent.paintImage();
+        this.canvasComponent.paintImage(this.imageProperties);
         this.canvasComponent.writeText(this.textProperties);
     }
 
@@ -87,7 +104,7 @@ export class DisplayComponent implements Observer<IEvent> {
                 break;
             }
             case ImagePropertyNames.IMAGE_POSITION: {
-                this.imageProperties.postion = event.value;
+                this.imageProperties.position = event.value;
                 break;
             }
             case ImagePropertyNames.IMAGE_ROTATION: {
