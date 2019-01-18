@@ -40,10 +40,79 @@ export class DisplayCanvas {
         if (this.context2d) {
             this.saveShadowAndAlphaSettings();
             if (image.image) {
-                this.context2d.drawImage(image.image, 0, 0);
+                const canvasBounds = this.getWidthHeight();
+                const imgBounds = this.calculateImageSize(image);
+                const imgPosition = this.calculateImagePosition(image.position, imgBounds, canvasBounds);
+                console.log(Math.floor(image.transparency / 100));
+                this.context2d.globalAlpha = image.transparency / 100;
+                this.context2d.drawImage(image.image, imgPosition.x, imgPosition.y, imgBounds.width, imgBounds.height);
             }
             this.restoreShadowAndAlphaSettings();
         }
+    }
+
+    private calculateImagePosition(position: string, imageBounds: any, canvasBounds: any) {
+        switch (position) {
+            case 'top-left': {
+                return {x: 0, y: 0};
+            }
+            case 'top-center': {
+                return {
+                    y: 0,
+                    x: Math.round(canvasBounds.width / 2 - imageBounds.width / 2),
+                };
+            }
+            case 'top-right': {
+                return {
+                    y: 0,
+                    x: Math.round(canvasBounds.width - imageBounds.width),
+                };
+            }
+            case 'left-center': {
+                return {
+                    x: 0,
+                    y: Math.round(canvasBounds.height / 2 - imageBounds.height / 2),
+                };
+            }
+            case 'center-center': {
+                return {
+                    x: Math.round(canvasBounds.width / 2 - imageBounds.width / 2),
+                    y: Math.round(canvasBounds.height / 2 - imageBounds.height / 2),
+                };
+            }
+            case 'right-center': {
+                return {
+                    x: Math.round(canvasBounds.width - imageBounds.width),
+                    y: Math.round(canvasBounds.height / 2 - imageBounds.height / 2),
+                };
+            }
+            case 'bottom-left': {
+                return {
+                    x: 0,
+                    y: Math.round(canvasBounds.height - imageBounds.height),
+                };
+            }
+            case 'bottom-center': {
+                return {
+                    x: Math.round(canvasBounds.width / 2 - imageBounds.width / 2),
+                    y: Math.round(canvasBounds.height - imageBounds.height),
+                };
+            }
+            case 'bottom-right': {
+                return {
+                    x: Math.round(canvasBounds.width - imageBounds.width),
+                    y: Math.round(canvasBounds.height - imageBounds.height),
+                };
+            }
+        }
+    }
+
+    private calculateImageSize(image: IImageProperties) {
+        const img = image.image;
+        return {
+            width: this.calculateSize(img.width, image.scale),
+            height: this.calculateSize(img.height, image.scale),
+        };
     }
 
     private addText(text: ITextProperties) {

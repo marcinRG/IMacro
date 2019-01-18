@@ -4,6 +4,10 @@ import {TextPropertiesComponent} from './components/TextProperties.component';
 import {DisplayComponent} from './components/Display.component';
 import {settings} from './settings/app.settings';
 
+window.addEventListener('resize', () => {
+    alert('resize');
+});
+
 window.addEventListener('load', () => {
     const canvasOptions = new CanvasOptionsComponent({
         querySelectorString: '.canvas-options-1',

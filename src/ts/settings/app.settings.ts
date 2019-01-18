@@ -127,8 +127,8 @@ const ImageOptionsSettings: any = {
         selected: rotationsCenterArray[2],
     },
     minMaxRotation: {min: -180, max: 180, defaultVal: 0},
-    minMaxSize: {min: 10, max: 400, defaultVal: 100},
-    minMaxTransparency: {min: 0, max: 100, defaultVal: 0},
+    minMaxScale: {min: 5, max: 120, defaultVal: 15},
+    minMaxTransparency: {min: 1, max: 99, defaultVal: 99},
 };
 const TextOptionsSettings: any = {
     textColor: {

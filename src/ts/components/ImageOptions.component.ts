@@ -78,8 +78,8 @@ export class ImageOptionsComponent implements ISubscribe<any> {
 
     private createSizeSlider(properties) {
         const sizeSliderSelector = `${properties.querySelectorString} .size-slider-image`;
-        const size = properties.componentSettings.minMaxSize;
-        return utils.createSlider(size.min, size.max, size.defaultVal,
+        const scale = properties.componentSettings.minMaxScale;
+        return utils.createSlider(scale.min, scale.max, scale.defaultVal,
             ImagePropertyNames.IMAGE_SCALE, sizeSliderSelector);
     }
 

@@ -34,6 +34,7 @@ export class DisplayComponent implements Observer<IEvent> {
     public init(settings) {
         this.initCanvasProperties(settings);
         this.initTextProperties(settings);
+        this.initImageProperties(settings);
         this.redrawCanvas();
     }
 
@@ -50,6 +51,14 @@ export class DisplayComponent implements Observer<IEvent> {
 
     public complete() {
         console.log('completed');
+    }
+
+    private initImageProperties(settings) {
+        this.imageProperties.scale = settings.image.minMaxScale.defaultVal;
+        this.imageProperties.transparency = settings.image.minMaxTransparency.defaultVal;
+        this.imageProperties.rotation = settings.image.minMaxRotation.defaultVal;
+        this.imageProperties.rotationCenter = settings.image.rotations.selected;
+        this.imageProperties.position = settings.image.directions.selected;
     }
 
     private initCanvasProperties(settings) {
