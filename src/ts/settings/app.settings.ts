@@ -106,7 +106,7 @@ const defaultMinMaxValue: IMinMaxValue = {
 };
 
 const rotationsCenterArray: string[] = [
-    directionsArray[0], directionsArray[2], directionsArray[4], directionsArray[5], directionsArray[7],
+    directionsArray[0], directionsArray[2], directionsArray[4], directionsArray[5], directionsArray[8],
 ];
 
 const CanvasOptionsSettings: any = {
