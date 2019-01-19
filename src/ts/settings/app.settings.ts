@@ -32,6 +32,16 @@ const colors: IColor[] = [
         name: 'yellow',
         value: '#fffc1b',
     },
+    {
+        id: '7',
+        name: 'green',
+        value: '#3e941c',
+    },
+    {
+        id: '8',
+        name: 'orange',
+        value: '#e77316',
+    },
 
 ];
 const fontsList: IFont[] = [
@@ -139,19 +149,28 @@ const TextOptionsSettings: any = {
         colors,
         selected: colors[4],
     },
+    strokeColor: {
+        colors,
+        selected: colors[5],
+    },
     fontFamily: {
         fonts: fontsList,
         selected: fontsList[4],
     },
     fontSize: {
         min: 6,
-        max: 48,
+        max: 70,
         value: 12,
         delta: 2,
     },
+    strokeWidth: {
+        min: 1,
+        max: 10,
+        value: 1,
+        delta: 1,
+    },
     minMaxPositionX: {min: 5, max: 95, defaultVal: 10},
     minMaxPositionY: {min: 5, max: 95, defaultVal: 10},
-    minMaxRotation: {min: -180, max: 180, defaultVal: 0},
     minMaxShadowBlur: {min: 0, max: 100, defaultVal: 0},
     minMaxShadowOffsetX: {min: -20, max: 20, defaultVal: 2},
     minMaxShadowOffsetY: {min: -20, max: 20, defaultVal: 2},

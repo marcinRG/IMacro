@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import {TextPropertyNames} from '../model/enums/TextPropertyNames';
 import {RxSpinner} from '../rxUiElements/RxSpinner';
+import {RxCheckBox} from '../rxUiElements/RxCheckBox';
 
 export class TextPropertiesComponent implements ISubscribe<any> {
     private componentLabel: string;
@@ -19,21 +20,27 @@ export class TextPropertiesComponent implements ISubscribe<any> {
     private fontFamilyLabel: string;
     private positionYLabel: string;
     private fontColorLabel: string;
-    private rotationLabel: string;
     private shadowLabel: string;
     private shadowColorLabel: string;
     private shadowBlurLabel: string;
     private shadowOffsetXLabel: string;
     private shadowOffsetYLabel: string;
     private shadowCheckboxLabel: string;
+    private strokeLabel: string;
+    private strokeCheckBoxLabel: string;
+    private strokeColorLabel: string;
+    private strokeWidthLabel: string;
     private htmlElement;
     private positionXSlider: RxSlider;
     private positionYSlider: RxSlider;
     private fontColorBox: RxMultiUseComboBox;
     private fontFamilyCBox: RxMultiUseComboBox;
     private fontSizeSpinner: RxSpinner;
-    private rotationSlider: RxSlider;
+    private strokeWidthSpinner: RxSpinner;
+    private strokeColorComboBox: RxMultiUseComboBox;
     private shadowColorBox: RxMultiUseComboBox;
+    private shadowCheckBox: RxCheckBox;
+    private strokeCheckBox: RxCheckBox;
     private shadowBlurSlider: RxSlider;
     private shadowOffsetXSlider: RxSlider;
     private shadowOffsetYSlider: RxSlider;
@@ -48,7 +55,6 @@ export class TextPropertiesComponent implements ISubscribe<any> {
             this.setHTMLElements(properties);
             this.subscribeToUIComponents();
             this.addTextInputListener(properties);
-            this.addShadowCheckboxListener(properties);
         }
     }
 
@@ -64,13 +70,16 @@ export class TextPropertiesComponent implements ISubscribe<any> {
         this.positionXSlider.subscribe(this.subject);
         this.positionYSlider.subscribe(this.subject);
         this.fontColorBox.subscribe(this.subject);
-        this.rotationSlider.subscribe(this.subject);
         this.shadowColorBox.subscribe(this.subject);
         this.shadowBlurSlider.subscribe(this.subject);
         this.shadowOffsetXSlider.subscribe(this.subject);
         this.shadowOffsetYSlider.subscribe(this.subject);
         this.fontSizeSpinner.subscribe(this.subject);
         this.fontFamilyCBox.subscribe(this.subject);
+        this.shadowCheckBox.subscribe(this.subject);
+        this.strokeColorComboBox.subscribe(this.subject);
+        this.strokeCheckBox.subscribe(this.subject);
+        this.strokeWidthSpinner.subscribe(this.subject);
     }
 
     private setProperties(properties: ITextPropertiesProperties) {
@@ -81,13 +90,17 @@ export class TextPropertiesComponent implements ISubscribe<any> {
         this.positionXLabel = properties.positionXLabel || 'position x';
         this.positionYLabel = properties.positionYLabel || 'position y';
         this.fontColorLabel = properties.fontColorLabel || 'font color';
-        this.rotationLabel = properties.rotationLabel || 'rotation';
         this.shadowLabel = properties.shadowLabel || 'shadow';
         this.shadowColorLabel = properties.shadowColorLabel || 'shadow color';
         this.shadowBlurLabel = properties.shadowBlurLabel || 'shadow blur';
         this.shadowOffsetXLabel = properties.shadowOffsetXLabel || 'offset x';
         this.shadowOffsetYLabel = properties.shadowOffsetYLabel || 'offset y';
-        this.shadowCheckboxLabel = properties.shadowCheckboxLabel || 'add shadow';
+        this.shadowCheckboxLabel = properties.shadowCheckBoxLabel || 'add shadow';
+        this.strokeLabel = properties.strokeLabel || 'stroke';
+        this.strokeCheckBoxLabel = properties.strokeCheckBoxLabel || 'add stroke';
+        this.strokeColorLabel = properties.strokeColorLabel || 'stroke color';
+        this.strokeWidthLabel = properties.strokeWidthLabel || 'stroke width';
+
     }
 
     private addTextInputListener(properties) {
@@ -103,19 +116,6 @@ export class TextPropertiesComponent implements ISubscribe<any> {
         observable.subscribe(this.subject);
     }
 
-    private addShadowCheckboxListener(properties) {
-        const checkboxSelector = `${properties.querySelectorString} .input-checkbox-text`;
-        const elem = document.querySelector(checkboxSelector);
-        const observable = Observable.fromEvent(elem, 'click').map((value: Event) => {
-            const checkbox = <HTMLInputElement> value.srcElement;
-            return {
-                name: TextPropertyNames.TEXT_SHADOW_ENBLED,
-                value: checkbox.checked,
-            };
-        });
-        observable.subscribe(this.subject);
-    }
-
     private createFontFamilyComboBox(properties) {
         const fontFamilyCBoxSelector = `${properties.querySelectorString} .font-family-cbox-text`;
         const fontSett = properties.componentSettings.fontFamily;
@@ -123,11 +123,25 @@ export class TextPropertiesComponent implements ISubscribe<any> {
             fontSett.fonts, fontSett.selected);
     }
 
+    private createStrokeColorComboBox(properties) {
+        const selector = `${properties.querySelectorString} .stroke-color-combo-box-text`;
+        const sets = properties.componentSettings.strokeColor;
+        return utils.createColorBox(selector, TextPropertyNames.TEXT_STROKE_COLOR,
+            sets.colors, sets.selected);
+    }
+
     private createFontSizeSpinner(properties) {
         const fontSizeSelector = `${properties.querySelectorString} .font-size-spinner-text`;
         const sizeSett = properties.componentSettings.fontSize;
         return utils.createSpinner(sizeSett.min, sizeSett.max, sizeSett.value, sizeSett.delta,
             TextPropertyNames.TEXT_SIZE, fontSizeSelector);
+    }
+
+    private createStrokeWidthSpinner(properties) {
+        const strokeWidthSelector = `${properties.querySelectorString} .stroke-width-spinner-text`;
+        const sets = properties.componentSettings.strokeWidth;
+        return utils.createSpinner(sets.min, sets.max, sets.value, sets.delta,
+            TextPropertyNames.TEXT_STROKE_WIDTH, strokeWidthSelector);
     }
 
     private createPositionXSlider(properties) {
@@ -142,13 +156,6 @@ export class TextPropertiesComponent implements ISubscribe<any> {
         const ypos = properties.componentSettings.minMaxPositionY;
         return utils.createSlider(ypos.min, ypos.max, ypos.defaultVal,
             TextPropertyNames.TEXT_POSITION_Y, positionYSliderSelector);
-    }
-
-    private createRotationSlider(properties) {
-        const rotationSliderSelector = `${properties.querySelectorString} .rotation-slider-text`;
-        const rot = properties.componentSettings.minMaxRotation;
-        return utils.createSlider(rot.min, rot.max, rot.defaultVal,
-            TextPropertyNames.TEXT_ROTATION, rotationSliderSelector);
     }
 
     private createBlurSlider(properties) {
@@ -186,10 +193,33 @@ export class TextPropertiesComponent implements ISubscribe<any> {
             shadowCol.colors, shadowCol.selected);
     }
 
+    private createStrokeCheckBox(properties) {
+        const checkBoxSelector = `${properties.querySelectorString} .stroke-enabled-text`;
+        const checkBox = new RxCheckBox(
+            {
+                querySelectorString: checkBoxSelector,
+                elementClass: 'checkbox-div',
+                propertyName: TextPropertyNames.TEXT_STROKE_ENABLED,
+                checkBoxLabel: this.strokeCheckBoxLabel,
+            });
+        return checkBox;
+    }
+
+    private createShadowCheckBox(properties) {
+        const checkBoxSelector = `${properties.querySelectorString} .shadow-enabled-text`;
+        const checkBox = new RxCheckBox(
+            {
+                querySelectorString: checkBoxSelector,
+                elementClass: 'checkbox-div',
+                propertyName: TextPropertyNames.TEXT_SHADOW_ENBLED,
+                checkBoxLabel: this.shadowCheckboxLabel,
+            });
+        return checkBox;
+    }
+
     private setHTMLElements(properties: ITextPropertiesProperties) {
         this.positionXSlider = this.createPositionXSlider(properties);
         this.positionYSlider = this.createPositionYSlider(properties);
-        this.rotationSlider = this.createRotationSlider(properties);
         this.shadowBlurSlider = this.createBlurSlider(properties);
         this.shadowOffsetXSlider = this.createOffsetXSlider(properties);
         this.shadowOffsetYSlider = this.createOffsetYSlider(properties);
@@ -197,6 +227,10 @@ export class TextPropertiesComponent implements ISubscribe<any> {
         this.shadowColorBox = this.createShadowColorCBox(properties);
         this.fontFamilyCBox = this.createFontFamilyComboBox(properties);
         this.fontSizeSpinner = this.createFontSizeSpinner(properties);
+        this.shadowCheckBox = this.createShadowCheckBox(properties);
+        this.strokeCheckBox = this.createStrokeCheckBox(properties);
+        this.strokeWidthSpinner = this.createStrokeWidthSpinner(properties);
+        this.strokeColorComboBox = this.createStrokeColorComboBox(properties);
     }
 
     private createHTMLElement() {
@@ -214,15 +248,14 @@ export class TextPropertiesComponent implements ISubscribe<any> {
             <div class="positiony-slider-text"></div>
             <label>${this.fontColorLabel}</label>
             <div class="font-color-combo-box-text"></div>
-            <label>${this.rotationLabel}</label>
-            <div class="rotation-slider-text"></div>
+            <label>${this.strokeLabel}</label>
+            <div class="stroke-enabled-text"></div>
+            <label>${this.strokeColorLabel}</label>
+            <div class="stroke-color-combo-box-text"></div>
+            <label>${this.strokeWidthLabel}</label>
+            <div class="stroke-width-spinner-text"></div>
             <label>${this.shadowLabel}</label>
-            <div class="checkbox-div">
-              <span class="checkbox-span">
-               <input type="checkbox" class="input-checkbox-text">
-              </span>
-              <span class="checkbox-label">${this.shadowCheckboxLabel}</span>
-            </div>
+            <div class="shadow-enabled-text"></div>
             <label>${this.shadowColorLabel}</label>
             <div class="shadow-color-combo-box-text"></div>
             <label>${this.shadowBlurLabel}</label>

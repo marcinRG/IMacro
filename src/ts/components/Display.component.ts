@@ -78,8 +78,10 @@ export class DisplayComponent implements Observer<IEvent> {
         this.textProperties.shadowColor = settings.text.shadowColor.selected.value;
         this.textProperties.positionX = settings.text.minMaxPositionX.defaultVal;
         this.textProperties.positionY = settings.text.minMaxPositionY.defaultVal;
-        this.textProperties.rotation = settings.text.minMaxRotation.defaultVal;
         this.textProperties.shadowEnabled = false;
+        this.textProperties.strokeEnabled = false;
+        this.textProperties.strokeColor = settings.text.strokeColor.selected.value;
+        this.textProperties.strokeWidth = settings.text.strokeWidth.value;
     }
 
     private redrawCanvas() {
@@ -159,10 +161,6 @@ export class DisplayComponent implements Observer<IEvent> {
                 this.textProperties.shadowBlur = event.value;
                 break;
             }
-            case TextPropertyNames.TEXT_ROTATION: {
-                this.textProperties.rotation = event.value;
-                break;
-            }
             case TextPropertyNames.TEXT_POSITION_X: {
                 this.textProperties.positionX = event.value;
                 break;
@@ -187,6 +185,19 @@ export class DisplayComponent implements Observer<IEvent> {
                 this.textProperties.fontSize = event.value;
                 break;
             }
+            case TextPropertyNames.TEXT_STROKE_ENABLED: {
+                this.textProperties.strokeEnabled = event.value;
+                break;
+            }
+            case TextPropertyNames.TEXT_STROKE_COLOR: {
+                const color: IColor = event.value;
+                this.textProperties.strokeColor = color.value;
+                break;
+            }
+            case TextPropertyNames.TEXT_STROKE_WIDTH: {
+                this.textProperties.strokeWidth = event.value;
+                break;
+            }
         }
     }
 
@@ -204,7 +215,8 @@ export class DisplayComponent implements Observer<IEvent> {
 
     private createHTMLElement() {
         const innerHTML = `
-        <canvas class="${this.canvasClass}" width="${this.canvasWidth}" height="${this.canvasHeight}"></canvas>`.trim();
+        <canvas class="${this.canvasClass}" width="${this.canvasWidth}" height="${this.canvasHeight}"></canvas>
+        `.trim();
         return innerHTML;
     }
 }

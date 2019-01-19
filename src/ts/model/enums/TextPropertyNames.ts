@@ -1,7 +1,6 @@
 export enum TextPropertyNames {
     TEXT_POSITION_X = 'text position x',
     TEXT_POSITION_Y = 'text position y',
-    TEXT_ROTATION = 'text rotation',
     TEXT_SHADOW_BLUR = 'text shadow blur',
     TEXT_SHADOW_ENBLED = 'text shadow enabled',
     TEXT_SHADOW_OFFSET_X = 'text shadow offset x',
@@ -10,5 +9,8 @@ export enum TextPropertyNames {
     TEXT_SHADOW_COLOR = 'text shadow color',
     TEXT_FONT_FAMILY = 'text font family',
     TEXT_SIZE = 'text size',
+    TEXT_STROKE_ENABLED = 'text stroke enabled',
+    TEXT_STROKE_COLOR = 'text stroke color',
+    TEXT_STROKE_WIDTH = 'text stroke width',
     TEXT = 'text',
 }

@@ -196,10 +196,17 @@ export class DisplayCanvas {
     }
 
     private addText(text: ITextProperties) {
-        this.addShadow(text);
         this.context2d.fillStyle = text.color;
         this.context2d.font = `normal normal ${text.fontSize}px ${text.fontFamily}`;
         const canvasBounds = this.getWidthHeight();
+        this.addShadow(text);
+        if (text.strokeEnabled) {
+            this.context2d.strokeStyle = text.strokeColor;
+            this.context2d.lineWidth = text.strokeWidth;
+            this.context2d.strokeText(text.text,
+                this.calculateSize(text.positionX, canvasBounds.x),
+                this.calculateSize(text.positionY, canvasBounds.y));
+        }
         this.context2d.fillText(text.text,
             this.calculateSize(text.positionX, canvasBounds.x),
             this.calculateSize(text.positionY, canvasBounds.y));

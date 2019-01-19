@@ -4,10 +4,12 @@ export interface ITextProperties {
     shadowOffsetY: number;
     shadowOffsetX: number;
     shadowBlur: number;
-    rotation: number;
     positionX: number;
     positionY: number;
     shadowEnabled: boolean;
+    strokeEnabled: boolean;
+    strokeColor: string;
+    strokeWidth: number;
     fontFamily: string;
     text: string;
     fontSize: number;

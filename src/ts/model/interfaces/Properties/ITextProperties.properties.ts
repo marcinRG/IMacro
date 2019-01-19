@@ -13,7 +13,11 @@ export interface ITextPropertiesProperties extends IComponentProperties {
     fontFamilyLabel?: string;
     shadowColorLabel?: string;
     shadowBlurLabel?: string;
-    shadowCheckboxLabel?: string;
+    strokeLabel?: string;
+    strokeCheckBoxLabel?: string;
+    shadowCheckBoxLabel?: string;
+    strokeColorLabel?: string;
+    strokeWidthLabel?: string;
     shadowOffsetXLabel?: string;
     shadowOffsetYLabel?: string;
     componentSettings: {
@@ -25,6 +29,16 @@ export interface ITextPropertiesProperties extends IComponentProperties {
             colors: IColor[],
             selected?: IColor,
         },
+        strokeColor: {
+            colors: IColor[],
+            selected?: IColor,
+        }
+        strokeWidth: {
+            min: number,
+            max: number,
+            value: number,
+            delta: number,
+        }
         fontFamily: {
             fonts: IFont[],
             selected?: IFont,

@@ -13,7 +13,24 @@
     position: absolute;
     left: 50%;
     top: 50%;
+    z-index: 10;
     transform: translateY(-50%) translateX(-50%);
   }
+
+/*  .save-button {
+    @include block-border-box;
+    position: absolute;
+    font-size: .65em;
+    outline: 0;
+    color: $app-text-color;
+    background-color: $app-input-color;
+    cursor: pointer;
+    padding: 1em 3em;
+    border: $app-border-2 solid 1px;
+    margin-bottom: .3em;
+    z-index: 20;
+    left: 2%;
+    bottom: 2%
+  }*/
 
 }
