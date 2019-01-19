@@ -9,7 +9,6 @@ import {TextPropertyNames} from '../model/enums/TextPropertyNames';
 import * as utils from '../utils/Utils';
 import {ICanvasProperties} from '../model/interfaces/ICanvasProperties';
 import {ITextProperties} from '../model/interfaces/ITextProperties';
-import {IIMageFile} from '../model/interfaces/IImageFile';
 import {IImageProperties} from '../model/interfaces/Properties/IImageProperties';
 
 export class DisplayComponent implements Observer<IEvent> {

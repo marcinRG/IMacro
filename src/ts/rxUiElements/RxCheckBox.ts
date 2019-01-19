@@ -2,6 +2,7 @@ import {ISubscribe} from 'crappyuielements';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
+import 'rxjs/add/observable/fromEvent';
 import {ICheckBoxProperties} from '../model/interfaces/Properties/ICheckBox.properties';
 
 export class RxCheckBox implements ISubscribe<any> {

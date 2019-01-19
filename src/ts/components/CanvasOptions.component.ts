@@ -3,7 +3,9 @@ import {RxSlider} from '../rxUiElements/RxSlider';
 import {RxMultiUseComboBox} from '../rxUiElements/RxMultiUseComboBox';
 import * as utils from './../utils/Utils';
 import {ISubscribe} from 'crappyuielements';
-import {Observable, Observer, Subject} from 'rxjs';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
+import {Observer} from 'rxjs/Observer';
 import {CanvasPropertyNames} from '../model/enums/CanvasPropertyNames';
 
 export class CanvasOptionsComponent implements ISubscribe<any> {

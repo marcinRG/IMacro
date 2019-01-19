@@ -6,6 +6,7 @@ import {ISubscribe} from 'crappyuielements';
 import {Subject} from 'rxjs/Subject';
 import {Observable} from 'rxjs/Observable';
 import {Observer} from 'rxjs/Observer';
+import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import {TextPropertyNames} from '../model/enums/TextPropertyNames';

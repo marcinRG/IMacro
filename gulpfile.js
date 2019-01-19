@@ -65,7 +65,7 @@ gulp.task('browserify-inject-js', ['browserify-compil'], function () {
 gulp.task('build-prepare', ['browserify-inject-js', 'inject-css'], function () {
 });
 
-gulp.task('dist-optimize', ['build-prepare', 'copyToBuild-fonts', 'test-run'], function () {
+gulp.task('dist-optimize', ['build-prepare', 'copyToBuild-fonts'], function () {
     var cleanCss = require('gulp-clean-css');
     return gulp.src(settings.app.index)
         .pipe($.plumber())

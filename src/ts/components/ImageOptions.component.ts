@@ -1,10 +1,12 @@
 import {IImageOptionsProperties} from '../model/interfaces/Properties/IImageOptions.Properties';
 import {ImageUploaderComponent} from './ImageUploader.component';
-import {RxDirectionsRadioGroup} from '../rxUiElements/RXDirectionsRadioGroup';
+import {RxDirectionsRadioGroup} from '../rxUiElements/RxDirectionsRadioGroup';
 import {RxSlider} from '../rxUiElements/RxSlider';
 import * as utils from './../utils/Utils';
 import {ISubscribe} from 'crappyuielements';
-import {Observable, Observer, Subject} from 'rxjs';
+import {Subject} from 'rxjs/Subject';
+import {Observable} from 'rxjs/Observable';
+import {Observer} from 'rxjs/Observer';
 import {ImagePropertyNames} from '../model/enums/ImagePropertyNames';
 
 export class ImageOptionsComponent implements ISubscribe<any> {

@@ -1,5 +1,15 @@
 @import 'variables';
 @import 'mixins';
+@import 'utils/fonts';
+
+@include custom-font-mixin-simplified('Oxygen Mono', 'oxygenmono-regular', $path-oxygen-mono);
+@include custom-font-mixin-simplified('Bangers', 'bangers-regular', $path-bangers);
+@include custom-font-mixin-simplified('Lobster', 'lobster-regular', $path-lobster);
+@include custom-font-mixin-simplified('Parisienne', 'parisienne-regular', $path-parisenne);
+@include custom-font-mixin-simplified('Playball', 'playball-regular', $path-playball);
+@include custom-font-mixin-simplified('Shrikhand', 'shrikhand-regular', $path-shrikhand);
+@include custom-font-mixin-simplified('Titan One', 'titanone-regular', $path-titan-one);
+@include custom-font-mixin-simplified('Allura', 'allura-regular', $path-allura);
 
 *,
 html {
@@ -20,9 +30,4 @@ body {
   align-items: stretch;
 }
 
-.footer {
-  @include block-border-box;
-  width: 100%;
-  background-color: green;
-}
 

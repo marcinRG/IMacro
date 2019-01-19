@@ -57,8 +57,8 @@ const fontsList: IFont[] = [
     },
     {
         id: '3',
-        name: 'Papyrus',
-        value: 'Papyrus, fantasy',
+        name: 'Allura',
+        value: 'Allura, cursive',
     },
     {
         id: '4',
@@ -73,27 +73,27 @@ const fontsList: IFont[] = [
     {
         id: '6',
         name: 'Lobster',
-        value: '\'Lobster\', cursive',
+        value: 'Lobster, cursive',
     },
     {
         id: '7',
         name: 'Shrikhand',
-        value: '\'Shrikhand\', cursive',
+        value: 'Shrikhand, cursive',
     },
     {
         id: '8',
         name: 'Bangers',
-        value: '\'Bangers\', cursive',
+        value: 'Bangers, cursive',
     },
     {
         id: '9',
         name: 'Parisienne',
-        value: '\'Parisienne\', cursive',
+        value: 'Parisienne, cursive',
     },
     {
         id: '10',
         name: 'Playball',
-        value: '\'Playball\', cursive',
+        value: 'Playball, cursive',
     },
 
 ];
